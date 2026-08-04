@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Set Theory — 24 electronic genres, in set order</title>
+<meta name="description" content="A scroll-through guide to 24 electronic dance genres, sequenced like a real DJ set: BPM, energy, notable artists and a track for each.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="is-locked">
+
+<!-- ===== Intro ===== -->
+<div class="intro" id="intro">
+  <div class="intro__glow" aria-hidden="true"></div>
+  <div class="intro__inner">
+    <p class="intro__kicker">24 genres · 6 acts · one continuous set</p>
+    <h1 class="intro__title">Set<span>Theory</span></h1>
+    <p class="intro__pitch">
+      Can't hear the difference between tech house and techno yet? Twenty-four genres
+      in set order, each with its BPM, its energy, and the track that defines it —
+      so you learn them the way a DJ does: by what comes next.
+    </p>
+    <button class="btn-begin" id="begin" type="button">Begin the Journey ▶</button>
+    <p class="intro__hint">Sound starts off. Hit the speaker any time. <kbd>J</kbd>/<kbd>K</kbd> to skip between genres.</p>
+  </div>
+</div>
+
+<!-- ===== Top chrome ===== -->
+<header class="topbar" id="topbar">
+  <div class="topbar__row">
+    <span class="topbar__brand">Set&nbsp;Theory</span>
+    <span class="topbar__now" id="now-playing">
+      <span class="topbar__act" id="now-act"></span>
+      <span class="topbar__sep">·</span>
+      <span class="topbar__genre" id="now-genre"></span>
+    </span>
+    <span class="topbar__tools">
+      <span class="topbar__count" id="now-count">01 / 24</span>
+      <div class="search" id="search">
+        <button class="iconbtn" id="search-toggle" type="button" aria-label="Search genres" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <input class="search__input" id="search-input" type="text" placeholder="Jump to a genre or artist…"
+               autocomplete="off" spellcheck="false" aria-label="Jump to a genre or artist">
+        <ul class="search__results" id="search-results"></ul>
+      </div>
+      <button class="iconbtn iconbtn--sound" id="sound-toggle" type="button"
+              aria-label="Turn sound on" aria-pressed="false">
+        <svg class="ic-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        <svg class="ic-loud" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg>
+      </button>
+    </span>
+  </div>
+  <div class="topbar__progress"><span id="progress-fill"></span></div>
+</header>
+
+<!-- ===== Side rail ===== -->
+<nav class="rail" id="rail" aria-label="Genre navigation"></nav>
+
+<!-- ===== Sections (rendered from data.js) ===== -->
+<main id="journey"></main>
+
+<!-- ===== Outro ===== -->
+<section class="outro" id="outro">
+  <div class="outro__inner">
+    <p class="outro__kicker">Lights up</p>
+    <h2 class="outro__title">You made it through the whole set.</h2>
+    <p class="outro__text">
+      Twenty-four genres, 60 to 180 BPM, warm-up to last record. The useful part isn't
+      memorising names — it's hearing where a track sits in the arc, and knowing what
+      you'd play next. Tap any genre to go back and listen again.
+    </p>
+    <p class="outro__note">
+      <strong>About those six acts:</strong> <em>warm-up</em> and <em>peak time</em> are real
+      DJ vocabulary — you'll see them in booking emails and on Beatport. <em>The build</em>,
+      <em>after hours</em> and <em>last record</em> describe real moments but aren't fixed
+      terms, and the six-act structure is a teaching device rather than an industry standard.
+      Most DJs think in three phases: opening, peak, closing.
+    </p>
+
+    <section class="craft" aria-labelledby="craft-title">
+      <h3 class="craft__title" id="craft-title">How a set actually gets built</h3>
+      <p class="craft__sub">The conventions behind the order you just scrolled through.</p>
+
+      <ul class="craft__list">
+        <li class="craft__item" style="--accent:#3dffc9">
+          <h4>Energy moves in waves, not a line</h4>
+          <p>
+            A set that climbs steadily and then sits at maximum exhausts a room. You build,
+            pull back, build higher. A drop only lands if there was a valley before it — which
+            is why the loudest record is almost never the first one.
+          </p>
+        </li>
+
+        <li class="craft__item" style="--accent:#ff3d81">
+          <h4>Mix on the phrase</h4>
+          <p>
+            Dance music is written in 4, 8 and 16-bar phrases. Bring the next track in on a
+            phrase boundary and the transition disappears; come in halfway through one and the
+            floor feels it, even if nobody could tell you why.
+          </p>
+        </li>
+
+        <li class="craft__item" style="--accent:#3dc9ff">
+          <h4>Stay near the tempo</h4>
+          <p>
+            CDJ pitch faders default to ±6% for a reason — stretch a track much past that and
+            it starts to sound wrong. Neighbouring genres in this guide mostly sit within a few
+            BPM of each other, which is what makes them mixable.
+          </p>
+        </li>
+
+        <li class="craft__item" style="--accent:#7cff3d">
+          <h4>Half-time is the bridge</h4>
+          <p>
+            Tempo and feel aren't the same number. A dubstep track at 140 BPM is counted in
+            half-time, so the kick and snare land like 70. That double reading is how DJs cross
+            gaps that look impossible on paper — it's the trick behind Act 5.
+          </p>
+        </li>
+
+        <li class="craft__item" style="--accent:#7c4dff">
+          <h4>Keys matter as much as beats</h4>
+          <p>
+            Two tracks can be perfectly beatmatched and still sound sour together if their keys
+            clash. Most DJ software labels every track with the Camelot wheel, so you can move
+            to an adjacent number and stay consonant without knowing any theory.
+          </p>
+        </li>
+
+        <li class="craft__item" style="--accent:#ffd23d">
+          <h4>Plan the first track and the last</h4>
+          <p>
+            The common advice is to know exactly how you're opening and how you're closing, then
+            read the room for everything in between. A fully scripted set can't respond to the
+            floor in front of it.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <div class="outro__grid" id="outro-grid"></div>
+    <button class="btn-begin btn-begin--ghost" id="restart" type="button">Back to the top ↑</button>
+  </div>
+</section>
+
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite">🔊 tap to hear the music</div>
+
+<script src="js/data.js"></script>
+<script src="js/audio-engine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
