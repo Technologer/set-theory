@@ -38,6 +38,19 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+  /* Glossary tokens: [[visible text|term-id]] in the locale copy. The visible
+     text can be inflected per language while the id stays stable — which is why
+     this isn't done by scanning for known words (Slovak declines them). */
+  const TERM_RE = /\[\[([^\]|]+)\|([a-z0-9-]+)\]\]/g;
+
+  /** Takes ALREADY-ESCAPED text and turns tokens into buttons. Order matters:
+      escape first, then inject markup, so copy can never smuggle in HTML. */
+  const linkTerms = (escaped) => String(escaped).replace(TERM_RE,
+    (_, label, id) => `<button class="term" type="button" data-term="${id}">${label}</button>`);
+
+  /** Same copy as plain text, for contexts with no markup (search, aria). */
+  const stripTerms = (s) => String(s).replace(TERM_RE, (_, label) => label);
+
   /* ================= i18n =================
      Every locale is a peer: js/i18n/<lang>.js holds all of that language's
      prose, data.js holds only language-neutral facts, and index.html holds no
@@ -84,6 +97,12 @@
     return note ? `${g.bpm} (${note})` : g.bpm;
   }
 
+  function term(id) {
+    return (locale().glossary && locale().glossary[id])
+        || (LOCALES[FALLBACK].glossary && LOCALES[FALLBACK].glossary[id])
+        || null;
+  }
+
   function actBlurb(act) {
     const here = locale().acts[act];
     const back = LOCALES[FALLBACK].acts[act];
@@ -115,9 +134,9 @@
       const blurb = q(".genre__actblurb");
       if (blurb) blurb.textContent = actBlurb(g.act);
       q(".genre__tagline").textContent = gtext(g, "tagline");
-      q(".genre__desc").textContent = gtext(g, "desc");
+      q(".genre__desc").innerHTML = linkTerms(esc(gtext(g, "desc")));
       q(".genre__factlabel").textContent = ui("factLabel");
-      q(".genre__fact p").textContent = gtext(g, "funFact");
+      q(".genre__fact p").innerHTML = linkTerms(esc(gtext(g, "funFact")));
 
       const k = s.querySelectorAll(".pill__k");
       k[0].textContent = ui("bpmLabel");
@@ -181,11 +200,11 @@
 
         <h2 class="genre__name" id="${g.id}-name">${esc(g.name)}</h2>
         <p class="genre__tagline">${esc(gtext(g, "tagline"))}</p>
-        <p class="genre__desc">${esc(gtext(g, "desc"))}</p>
+        <p class="genre__desc">${linkTerms(esc(gtext(g, "desc")))}</p>
 
         <div class="genre__fact">
           <span class="genre__factlabel">${esc(ui("factLabel"))}</span>
-          <p>${esc(gtext(g, "funFact"))}</p>
+          <p>${linkTerms(esc(gtext(g, "funFact")))}</p>
         </div>
 
         <ul class="pills">
@@ -325,7 +344,7 @@
         g.family.toLowerCase().includes(t) ||
         g.artists.toLowerCase().includes(t) ||
         // the tagline the reader can actually see, so search matches the UI language
-        gtext(g, "tagline").toLowerCase().includes(t))
+        stripTerms(gtext(g, "tagline")).toLowerCase().includes(t))
       .slice(0, 6);
   }
 
@@ -368,10 +387,64 @@
     });
   }
 
+  /* ================= glossary popover ================= */
+
+  const pop = {
+    root: document.getElementById("termpop"),
+    title: document.querySelector("#termpop .termpop__term"),
+    def: document.querySelector("#termpop .termpop__def")
+  };
+  let popOpen = false;
+
+  function openTerm(btn) {
+    const t = term(btn.dataset.term);
+    if (!t) return;
+    pop.title.textContent = t.term;
+    pop.def.textContent = t.def;
+    pop.root.hidden = false;
+    popOpen = true;
+
+    // Anchor under the word, then clamp so it never leaves the viewport.
+    const r = btn.getBoundingClientRect();
+    const w = pop.root.offsetWidth;
+    const left = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
+    const h = pop.root.offsetHeight;
+    const below = r.bottom + 10;
+    const fitsBelow = below + h < window.innerHeight - 12;
+    // Clamp as a last resort: neither slot fits if the anchor is itself off-screen.
+    const top = Math.min(Math.max(12, fitsBelow ? below : r.top - h - 10),
+                         window.innerHeight - h - 12);
+    pop.root.style.left = `${Math.round(left)}px`;
+    pop.root.style.top = `${Math.round(top)}px`;
+
+    document.querySelectorAll(".term.is-open").forEach((n) => n.classList.remove("is-open"));
+    btn.classList.add("is-open");
+  }
+
+  function closeTerm() {
+    if (!popOpen) return;
+    pop.root.hidden = true;
+    popOpen = false;
+    document.querySelectorAll(".term.is-open").forEach((n) => n.classList.remove("is-open"));
+    // A track may have finished while the definition was open — go now.
+    if (pendingAdvance !== null) {
+      const i = pendingAdvance;
+      pendingAdvance = null;
+      if (i === current) advanceFrom(i);
+    }
+  }
+
   /* ================= track end ================= */
 
   // A finished track hands the set over to the next genre — the scroll position
   // follows the music rather than the other way round.
+  let pendingAdvance = null;
+
+  function advanceFrom(index) {
+    if (index + 1 < DATA.length) goTo(index + 1);
+    else el.outro.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleTrackEnd(index) {
     if (index !== current) return;               // user already scrolled on
 
@@ -383,8 +456,10 @@
       return;
     }
 
-    if (index + 1 < DATA.length) goTo(index + 1);
-    else el.outro.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Never yank the page out from under someone reading a definition.
+    if (popOpen) { pendingAdvance = index; return; }
+
+    advanceFrom(index);
   }
 
   /* ================= sound ================= */
@@ -428,9 +503,9 @@
 
   function initKeyboard() {
     addEventListener("keydown", (e) => {
-      if (e.target.matches("input, textarea")) return;
+      if (e.target.matches && e.target.matches("input, textarea")) return;
       if (e.key === "/" ) { e.preventDefault(); openSearch(); return; }
-      if (e.key === "Escape") { closeSearch(); return; }
+      if (e.key === "Escape") { closeTerm(); closeSearch(); return; }
       const next = ["ArrowDown", "j", "J"].includes(e.key);
       const prev = ["ArrowUp", "k", "K"].includes(e.key);
       if (!next && !prev) return;
@@ -443,6 +518,10 @@
 
   function initDelegates() {
     document.addEventListener("click", (e) => {
+      const termBtn = e.target.closest("[data-term]");
+      if (termBtn) { openTerm(termBtn); return; }
+      if (popOpen && !e.target.closest("#termpop")) closeTerm();
+
       const jump = e.target.closest("[data-jump]");
       if (jump) { goTo(Number(jump.dataset.jump)); closeSearch(); return; }
 
