@@ -245,7 +245,7 @@ const I18N_SK = {
       energy: "Pokojná, pohlcujúca",
       desc: "Ambient a downtempo stavajú na atmosfére, textúre a priestore — nie na tom, či sa na to dá tancovať. Ambient vie rytmus opustiť úplne a nechať znieť len plynúce zvukové plochy, downtempo si drží voľný, pomalý [[groove|groove]]. Ideálne na otvorenie setu, do chill-out miestnosti alebo na dojazd po nočnej.",
       funFact: "Pojem „ambient music“ zaviedol Brian Eno v roku 1978 v texte k albumu Music for Airports — písal, že taká hudba má byť rovnako ľahko prehliadnuteľná ako zaujímavá. Bonobo stojí na druhej strane tej hranice: „Kerala“ si drží pomalý, voľný groove, ale ťahá ťa textúra, nie [[drop|drop]].",
-      videoNote: "Bonobo — „Kerala“, moderný etalón downtempa"
+      videoNote: "Bonobo — „Kerala“ (2016), moderný etalón downtempa"
     },
 
     "tropical-house": {
@@ -253,7 +253,7 @@ const I18N_SK = {
       energy: "Pohodová, slnečná",
       desc: "Mäkká, k popu naklonená odnož housu, ktorá sa presadila okolo roku 2014. Stojí na melódiách v štýle marimby a steel drumov, uvoľnenej [[perkusii|percussion]] a spevných [[hookoch|hook]]. Tempo je citeľne nižšie než pri väčšine housu, takže to celé znie ako pláž pri západe slnka.",
       funFact: "Kygo skladal svoje prvé hity vrátane „Firestone“ v detskej izbe v Nórsku, v skúšobných verziách softvéru — ešte predtým, než vôbec stál na festivalovom pódiu.",
-      videoNote: "Kygo ft. Conrad Sewell — „Firestone“, vlajková loď žánru"
+      videoNote: "Kygo ft. Conrad Sewell — „Firestone“ (2014), vlajková loď žánru"
     },
 
     "deep-house": {
@@ -261,7 +261,7 @@ const I18N_SK = {
       energy: "Teplá, uvoľnená",
       desc: "Deep house berie housový groove a zjemňuje ho: rozšírené jazzové akordy, teplý [[sub-bass|sub-bass]] a atmosférické [[pady|pads]], pričom všetko ostatné drží nenápadne a nižšie v mixe. Ide mu o náladu a textúru, nie o veľké momenty.",
       funFact: "Tu sa deep house začína: Chicagčan Larry Heard, nahrávajúci ako Mr. Fingers, to vraj postavil takmer celé na jedinom Rolande Juno-60. Všetko, čo žáner robí dodnes, je už tu — zjemnený groove, teplý sub-bass a odmietanie siahnuť po veľkom momente. Disclosure pracovali s rovnakým receptom o štvrťstoročie neskôr.",
-      videoNote: "Mr. Fingers — „Can You Feel It“, platňa, z ktorej deep house vyrástol"
+      videoNote: "Mr. Fingers — „Can You Feel It“ (1986), platňa, z ktorej deep house vyrástol"
     },
 
     "house": {
@@ -285,7 +285,7 @@ const I18N_SK = {
       energy: "Ťahavá, groovy",
       desc: "Tech house spája poskakujúci housový groove s odľahčenou, repetitívnou [[perkusiou|percussion]] a valivými [[basmi|bassline]] z techna. Vokály sú riedke alebo nasekané na rytmické stabs — čistý groove stavaný na [[peak-time|peak-time]] klubové sety.",
       funFact: "FISHER bol v Austrálii profesionálnym skateboardistom, než sa z neho stala jedna z najväčších hviezd tech housu.",
-      videoNote: "Fisher — „Losing It“, tech house, ktorý sa prebil do mainstreamu"
+      videoNote: "Fisher — „Losing It“ (2018), tech house, ktorý sa prebil do mainstreamu"
     },
 
     "uk-garage": {
@@ -293,7 +293,7 @@ const I18N_SK = {
       energy: "Skákavá, soulová",
       desc: "UK garage vyrástol v londýnskych kluboch v polovici 90. rokov. Spája housový four-on-the-floor základ so [[synkopovanými|syncopation]], [[shufflovanými|shuffle]] rytmami, [[vokálmi posunutými nahor|vocal-chop]] a hlbokým sub-bassom. Výrazne britský bounce, z ktorého priamo vyšli grime aj dubstep.",
       funFact: "„Re-Rewind“ naštartoval kariéru Craiga Davida — keď ho Artful Dodger prvýkrát pozvali do štúdia, bol ešte tínedžer a pracoval v obchode s topánkami v Southamptone.",
-      videoNote: "Artful Dodger ft. Craig David — „Re-Rewind“, klasika UK garage"
+      videoNote: "Artful Dodger ft. Craig David — „Re-Rewind“ (1999), klasika UK garage"
     },
 
     "breakbeat": {
@@ -301,7 +301,7 @@ const I18N_SK = {
       energy: "Funková, úderná",
       desc: "Zastrešujúci pojem pre elektroniku postavenú na synkopovaných, samplovaných [[bubeníckych breakoch|drum-break]] namiesto rovného [[four-on-the-floor|four-on-the-floor]] kicku. Korene má v hip-hope a britskom rave 90. rokov a vyrástli z neho odnože ako big beat, jungle či nu-skool breaks.",
       funFact: "Liam Howlett z The Prodigy skladal prvé breakbeatové veci na počítači Atari ST a lacnom [[sampleri|sampler]] — dávno predtým, než kapela začala zatvárať festivaly.",
-      videoNote: "The Prodigy — „Breathe“, medzník breakbeatu a big beatu"
+      videoNote: "The Prodigy — „Breathe“ (1996), medzník breakbeatu a big beatu"
     },
 
     "future-house": {
@@ -309,7 +309,7 @@ const I18N_SK = {
       energy: "Skákavá, hravá",
       desc: "Future house pridáva k housovému grooveu úderné, ladené až vrčiace basové [[stabs|stab]], synkopované [[basové linky|bassline]] a popovo stavané [[dropy|drop]]. Presadil sa v rokoch 2014 – 2016 a vďaka okamžite chytľavým hookom sa stal stálicou festivalových mainstage.",
       funFact: "Tchami pomenoval žáner aj preto, aby svoj zvuk na pomedzí gospelu, housu a basov odlíšil od čoraz všeobecnejšej nálepky „EDM“, ktorá vládla polovici desiatych rokov.",
-      videoNote: "Tchami — „Adieu“, hymna, ktorá žáner definovala"
+      videoNote: "Tchami — „Adieu“ (2017), hymna, ktorá žáner definovala"
     },
 
     "progressive-house": {
@@ -317,7 +317,7 @@ const I18N_SK = {
       energy: "Hypnotické stúpanie",
       desc: "Progressive house dáva prednosť dlhým, postupne sa vyvíjajúcim skladbám pred náhlymi [[dropmi|drop]]. Melodické a rytmické vrstvy pribúdajú a ubúdajú pomaly, naprieč šiestimi až ôsmimi minútami. Je to cesta, nie moment.",
       funFact: "„Opus“ od Erica Prydza stúpa vyše štyroch minút, kým príde prvý skutočný drop — extrémna ukážka toho, ako progressive house testuje trpezlivosť.",
-      videoNote: "Eric Prydz — „Opus“, moderný medzník progressive housu"
+      videoNote: "Eric Prydz — „Opus“ (2015), moderný medzník progressive housu"
     },
 
     "melodic-techno": {
@@ -325,7 +325,7 @@ const I18N_SK = {
       energy: "Emotívna, atmosférická",
       desc: "Melodic techno spája ťahavú technovú [[perkusiu|percussion]] s bohatými [[padmi|pads]], [[arpeggiami|arpeggio]] a často melancholickými melódiami vypožičanými z progressive housu. Je to zvuk na festivalový prechod z večera do noci.",
       funFact: "Label a párty Afterlife, ktoré spoluzaložili Tale Of Us, spravili z melodic techna jeden z najväčších festivalových ťahákov 20. rokov — často vypredajú pódiá veľkosti arény.",
-      videoNote: "Tale Of Us & Mind Against — „Astral“, definujúca nahrávka melodic techna"
+      videoNote: "Tale Of Us & Mind Against — „Astral“ (2015), definujúca nahrávka melodic techna"
     },
 
     "electro-house": {
@@ -333,7 +333,7 @@ const I18N_SK = {
       energy: "Energická, drzá",
       desc: "Electro house pridáva do housu úderné, [[skreslené|distortion]] syntezátorové basové „[[stabs|stab]]“ a [[zvukový dizajn|sound-design]] inšpirovaný elektrom 80. rokov. Namiesto jemnosti stavia na priamočiarych, výrazných dropoch. Ovládol EDM boom na prelome nultých a desiatych rokov.",
       funFact: "Obrovská myšacia hlava deadmau5 začala ako lacný halloweensky kostým v Kanade — dnes je to jedna z najrozpoznateľnejších vizuálnych značiek tanečnej hudby.",
-      videoNote: "deadmau5 ft. Rob Swire — „Ghosts 'n' Stuff“, etalón žánru"
+      videoNote: "deadmau5 ft. Rob Swire — „Ghosts 'n' Stuff“ (2009), etalón žánru"
     },
 
     "big-room-house": {
@@ -341,7 +341,7 @@ const I18N_SK = {
       energy: "Euforická, peak-time",
       desc: "Navrhnutý priamo pre festivalové mainstage: obrovský, jednoduchý a okamžite chytľavý [[drop|drop]] po dlhom [[budovaní napätia|buildup]]. Nejde tu o jemnosť, ale o dopad na obrovský dav.",
       funFact: "„Animals“ napísal Martin Garrix ako sedemnásťročný — skladba sa dostala na prvé miesto britskej hitparády a spravila z neho jedného z najmladších headlinerov veľkých festivalov.",
-      videoNote: "Martin Garrix — „Animals“, skladba, ktorá definovala zvuk"
+      videoNote: "Martin Garrix — „Animals“ (2013), skladba, ktorá definovala zvuk"
     },
 
     "trance": {
@@ -349,7 +349,7 @@ const I18N_SK = {
       energy: "Euforická, emotívna",
       desc: "Trance vznikol v Nemecku na začiatku 90. rokov. Stojí na dlhom [[budovaní|buildup]], emotívnom [[breakdowne|breakdown]] a vzlietajúcej [[melodickej syntezátorovej linke|synth-lead]] vo vrchole — celé je to postavené tak, aby na parkete vznikol spoločný moment s rukami vo vzduchu.",
       funFact: "Tiësto bol prvým DJom, ktorý hral naživo na otváracom ceremoniáli olympiády — mixoval počas nástupu športovcov v Aténach v roku 2004. Približne v tom istom období ho čitatelia DJ Mag trikrát po sebe zvolili za najlepšieho DJa sveta. „Lethal Industry“ je presne z tých rokov, keď bol tento dlhý, melodický trance tým najväčším, čo tanečná hudba mala.",
-      videoNote: "Tiësto — „Lethal Industry“, hymna z vrcholnej éry trancu"
+      videoNote: "Tiësto — „Lethal Industry“ (2002), hymna z vrcholnej éry trancu"
     },
 
     "techno": {
@@ -358,7 +358,7 @@ const I18N_SK = {
       energy: "Hypnotická, neúprosná",
       desc: "Techno sa zrodilo v Detroite v polovici 80. rokov a zredukovalo tanečnú hudbu na jej strojovú podstatu: neúprosný [[four-on-the-floor|four-on-the-floor]] rytmus, minimum melódie a temnú, futuristickú atmosféru. Je to chrbtová kosť nočných a [[peak-time|peak-time]] momentov v kluboch po celom svete.",
       funFact: "Detroitskí zakladatelia techna (Juan Atkins, Derrick May, Kevin Saunderson) čerpali z nemeckých Kraftwerk a z futurológa Alvina Tofflera, ktorého kniha The Third Wave dala scéne slovník. O štyri dekády neskôr pracuje Charlotte de Witte s rovnakým zadaním: stroje, opakovanie a žiadny refrén.",
-      videoNote: "Charlotte de Witte — „Doppler“, moderná peak-time technová stálica"
+      videoNote: "Charlotte de Witte — „Doppler“ (2021), moderná peak-time technová stálica"
     },
 
     "minimal-techno": {
@@ -366,7 +366,7 @@ const I18N_SK = {
       energy: "Riedka, meditatívna",
       desc: "Minimal techno redukuje žáner na úplný základ: [[slučky|loop]] [[mikro-samplov|sample]], jemné posuny v textúre, takmer žiadna melódia. [[Groove|groove]] vzniká z drobných zmien natiahnutých cez dlhý čas.",
       funFact: "Richie Hawtin odohral celé sety len s notebookom a hŕstkou slučiek — dôkaz, koľko grooveu vie minimal techno vyžmýkať z minima materiálu.",
-      videoNote: "Richie Hawtin — mix minimal techna a IDM, štýl v pohybe"
+      videoNote: "Richie Hawtin — mix minimal techna a IDM (2020), štýl v pohybe"
     },
 
     "hard-techno": {
@@ -374,7 +374,7 @@ const I18N_SK = {
       energy: "Intenzívna, agresívna",
       desc: "Hard techno tlačí tempo aj agresivitu ďalej než bežné techno: [[skreslené|distortion]], ubíjajúce [[kicky|kick]], ostré [[stabs|stab]] a neúprosná energia na záver noci.",
       funFact: "Amelie Lens založila v roku 2018 label Lenske a patrí k tým pár umelcom, ktorí s rovnako tvrdým zvukom zahrajú aj na podzemnom warehouse rave, aj na festivalovom mainstage.",
-      videoNote: "Amelie Lens — „In My Mind“, ťahavý hard technový kus"
+      videoNote: "Amelie Lens — „In My Mind“ (2022), ťahavý hard technový kus"
     },
 
     "hardstyle": {
@@ -382,7 +382,7 @@ const I18N_SK = {
       energy: "Intenzívna, euforická",
       desc: "Holandský žáner, ktorý spája skreslený, výškovo ohýbaný „[[reverse bass|reverse-bass]]“ [[kick|kick]] z hard techna s euforickými melódiami inšpirovanými trancom. Strieda tvrdšie „rawstyle“ pasáže s melodickými vrcholmi.",
       funFact: "Práve reverse-bass kick — pri ktorom výška tónu stúpa namiesto klesania — odlišuje hardstyle od hard techna a dáva mu ten charakteristický euforický úder.",
-      videoNote: "Headhunterz — „Dragonborn“, hardstylová hymna"
+      videoNote: "Headhunterz — „Dragonborn“ (2012), hardstylová hymna"
     },
 
     "jungle": {
@@ -398,7 +398,7 @@ const I18N_SK = {
       energy: "Rýchla, ženúca",
       desc: "Drum & bass vyrástol z britského jungle a breakbeat hardcoru zo začiatku 90. rokov. Definujú ho rýchle, nasekané [[breakbeaty|drum-break]] spojené s hlbokým [[sub-bassom|sub-bass]]. Pôsobí skôr ženúco než zbrklo — skvelý nástroj na sety s vysokou energiou.",
       funFact: "Netsky vydal prvý album ako dvadsaťročný a singel „Rio“ pomenoval po ceste, ktorá jeho zvuk preformovala brazílskymi rytmami.",
-      videoNote: "Netsky ft. Digital Farm Animals — „Rio“, crossover DnB hit"
+      videoNote: "Netsky ft. Digital Farm Animals — „Rio“ (2015), crossover DnB hit"
     },
 
     "dubstep": {
@@ -407,7 +407,7 @@ const I18N_SK = {
       energy: "Ťažká, basová",
       desc: "Dubstep vznikol na začiatku nultých rokov v južnom Londýne ako riedka, basovo ťažká hudba ovplyvnená dubom, postavená na [[synkopovanom|syncopation]] rytme a charakteristickom „[[wobble|wobble]]“ base. Americká vetva („brostep“) ho neskôr posunula k agresívnym dropom s vrčiacimi strednými polohami.",
       funFact: "Dubstep sa rodil v malých predajniach platní v južnom Londýne, napríklad v Big Apple Records, kde producenti skúšali nevydané [[dubplates|dubplate]] na obrovských sound systémoch skôr, než ich ktokoľvek inde počul. „Bangarang“ je to, čo sa stalo, keď táto sub-bassová kultúra prešla cez Atlantik a vymenila temnotu a priestor za agresiu v stredných polohách.",
-      videoNote: "Skrillex ft. Sirah — „Bangarang“, definujúca skladba brostepovej éry"
+      videoNote: "Skrillex ft. Sirah — „Bangarang“ (2011), definujúca skladba brostepovej éry"
     },
 
     "trap-edm": {
@@ -416,7 +416,7 @@ const I18N_SK = {
       energy: "Úderná, hype",
       desc: "EDM trap si požičiava rýchle [[hi-hat rolky|hihat-roll]], dunivý [[808|808]] sub-bass a [[half-time|half-time]] dropy z južanského hip-hopu a prerába ich pre festivalové mainstage.",
       funFact: "RL Grime pôvodne študoval jazzový klavír na USC a až potom sa dal na produkciu — to klasické školenie je v jeho vrstvených, melodických trapových aranžmánoch stále počuť.",
-      videoNote: "RL Grime — „Core“, definujúce EDM-trapové vydanie"
+      videoNote: "RL Grime — „Core“ (2014), definujúce EDM-trapové vydanie"
     },
 
     "psytrance": {
@@ -424,7 +424,7 @@ const I18N_SK = {
       energy: "Trippy, ťahavá",
       desc: "Psychedelický trance zapustil korene v rave scéne v indickej Goe na konci 80. a v 90. rokoch. Vyvinul sa do rýchleho, hypnotického štýlu postaveného na valivých [[basových linkách|bassline]] a prepracovanom, [[acidom|acid]] inšpirovanom [[zvukovom dizajne|sound-design]].",
       funFact: "Psytrance má korene v indickej Goe na konci 80. rokov, kde cestujúci baťôžkari a miestni DJi robili celonočné párty na pláži a miešali indickú spiritualitu s ranou elektronikou. Veľa z tých cestovateľov boli Izraelčania, ktorí si zvuk priniesli domov — a tak sa z dvojice ako Infected Mushroom stal jeden z najväčších izraelských hudobných exportov.",
-      videoNote: "Infected Mushroom — „Becoming Insane“, klasika psytrancu"
+      videoNote: "Infected Mushroom — „Becoming Insane“ (2007), klasika psytrancu"
     },
 
     "dance-pop": {
@@ -432,7 +432,7 @@ const I18N_SK = {
       energy: "Široko prístupná",
       desc: "Zastrešujúci pojem pre rádiovú elektroniku postavenú na pesničkovej štruktúre a vokálnych [[hookoch|hook]], nie na funkcii [[DJského nástroja|dj-tool]]. Čerpá z housu, elektra aj popovej produkcie.",
       funFact: "Avicii predviedol „Wake Me Up“ na Ultre v roku 2013 so živými folkovými hudobníkmi na pódiu a tanečné publikum ho vypískalo. O pár mesiacov bola skladba jednotkou vo vyše dvadsiatich krajinách. Platňa, ktorú parket odmietol ako príliš popovú, je celkom vhodné miesto na záver sprievodcu o tom, kde vlastne hranice žánrov ležia.",
-      videoNote: "Avicii — „Wake Me Up“, crossover EDM-popu v najčistejšej podobe"
+      videoNote: "Avicii — „Wake Me Up“ (2013), crossover EDM-popu v najčistejšej podobe"
     }
   }
 };

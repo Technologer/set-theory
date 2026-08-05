@@ -31,7 +31,7 @@
     searchInput: document.getElementById("search-input"),
     searchResults: document.getElementById("search-results"),
     langToggle: document.getElementById("lang-toggle"),
-    toast: document.getElementById("toast")
+    toast: document.getElementById("toast"),
   };
 
   let sections = [];
@@ -39,8 +39,11 @@
   let journeyStarted = false;
 
   const pad = (n) => String(n).padStart(2, "0");
-  const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = (s) =>
+    String(s).replace(
+      /[&<>"]/g,
+      (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+    );
 
   /* Glossary tokens: [[visible text|term-id]] in the locale copy. The visible
      text can be inflected per language while the id stays stable — which is why
@@ -49,8 +52,12 @@
 
   /** Takes ALREADY-ESCAPED text and turns tokens into buttons. Order matters:
       escape first, then inject markup, so copy can never smuggle in HTML. */
-  const linkTerms = (escaped) => String(escaped).replace(TERM_RE,
-    (_, label, id) => `<button class="term" type="button" data-term="${id}">${label}</button>`);
+  const linkTerms = (escaped) =>
+    String(escaped).replace(
+      TERM_RE,
+      (_, label, id) =>
+        `<button class="term" type="button" data-term="${id}">${label}</button>`,
+    );
 
   /** Same copy as plain text, for contexts with no markup (search, aria). */
   const stripTerms = (s) => String(s).replace(TERM_RE, (_, label) => label);
@@ -65,7 +72,7 @@
   const FALLBACK = "en";
   const LOCALES = {
     en: typeof I18N_EN !== "undefined" ? I18N_EN : null,
-    sk: typeof I18N_SK !== "undefined" ? I18N_SK : null
+    sk: typeof I18N_SK !== "undefined" ? I18N_SK : null,
   };
 
   let lang = FALLBACK;
@@ -74,13 +81,17 @@
     const saved = localStorage.getItem(LANG_KEY);
     if (saved === "en" || saved === "sk") return saved;
     // Slovak only for Slovak browsers; everyone else gets English.
-    return (navigator.language || "").toLowerCase().startsWith("sk") ? "sk" : "en";
+    return (navigator.language || "").toLowerCase().startsWith("sk")
+      ? "sk"
+      : "en";
   }
 
   const locale = () => LOCALES[lang] || LOCALES[FALLBACK];
 
   function dig(obj, path) {
-    return path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), obj);
+    return path
+      .split(".")
+      .reduce((o, k) => (o == null ? undefined : o[k]), obj);
   }
 
   function ui(key) {
@@ -102,9 +113,11 @@
   }
 
   function term(id) {
-    return (locale().glossary && locale().glossary[id])
-        || (LOCALES[FALLBACK].glossary && LOCALES[FALLBACK].glossary[id])
-        || null;
+    return (
+      (locale().glossary && locale().glossary[id]) ||
+      (LOCALES[FALLBACK].glossary && LOCALES[FALLBACK].glossary[id]) ||
+      null
+    );
   }
 
   function actBlurb(act) {
@@ -118,17 +131,24 @@
     document.documentElement.lang = lang;
 
     document.title = loc.meta.title;
-    document.querySelector('meta[name="description"]')
+    document
+      .querySelector('meta[name="description"]')
       .setAttribute("content", loc.meta.description);
 
-    document.querySelectorAll("[data-i18n]").forEach((n) =>
-      (n.textContent = ui(n.dataset.i18n)));
-    document.querySelectorAll("[data-i18n-html]").forEach((n) =>
-      (n.innerHTML = ui(n.dataset.i18nHtml)));
-    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) =>
-      (n.placeholder = ui(n.dataset.i18nPlaceholder)));
-    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) =>
-      n.setAttribute("aria-label", ui(n.dataset.i18nAriaLabel)));
+    document
+      .querySelectorAll("[data-i18n]")
+      .forEach((n) => (n.textContent = ui(n.dataset.i18n)));
+    document
+      .querySelectorAll("[data-i18n-html]")
+      .forEach((n) => (n.innerHTML = ui(n.dataset.i18nHtml)));
+    document
+      .querySelectorAll("[data-i18n-placeholder]")
+      .forEach((n) => (n.placeholder = ui(n.dataset.i18nPlaceholder)));
+    document
+      .querySelectorAll("[data-i18n-aria-label]")
+      .forEach((n) =>
+        n.setAttribute("aria-label", ui(n.dataset.i18nAriaLabel)),
+      );
 
     // Sections are patched in place rather than re-rendered: a re-render would
     // tear out the live YouTube iframes and orphan the audio engine's players.
@@ -157,16 +177,20 @@
          ${esc(gtext(g, "videoNote"))}`;
 
       const play = q("[data-play]");
-      if (play && !play.classList.contains("is-playing")) play.textContent = ui("playTrack");
+      if (play && !play.classList.contains("is-playing"))
+        play.textContent = ui("playTrack");
     });
 
     // Button advertises the language you'd switch TO.
     el.langToggle.textContent = lang === "sk" ? "EN" : "SK";
-    el.langToggle.setAttribute("aria-label",
-      lang === "sk" ? "Switch to English" : "Prepnúť na slovenčinu");
+    el.langToggle.setAttribute(
+      "aria-label",
+      lang === "sk" ? "Switch to English" : "Prepnúť na slovenčinu",
+    );
 
     reflectSound(AudioEngine.isSoundOn());
-    if (el.search.classList.contains("is-open")) renderResults(el.searchInput.value);
+    if (el.search.classList.contains("is-open"))
+      renderResults(el.searchInput.value);
   }
 
   function initLang() {
@@ -248,12 +272,14 @@
   }
 
   function outroHTML() {
-    return DATA.map((g, i) => `
+    return DATA.map(
+      (g, i) => `
       <button class="recap" type="button" data-jump="${i}" style="--accent:${g.accent}">
         <span class="recap__n">${pad(i + 1)}</span>
         <span class="recap__name">${esc(g.name)}</span>
         <span class="recap__bpm">${esc(g.bpm)} BPM</span>
-      </button>`).join("");
+      </button>`,
+    ).join("");
   }
 
   function render() {
@@ -269,7 +295,10 @@
     const target = sections[index];
     if (!target) return;
     if (!journeyStarted) start();
-    target.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
+    target.scrollIntoView({
+      behavior: REDUCED ? "auto" : "smooth",
+      block: "start",
+    });
   }
 
   function setCurrent(index) {
@@ -295,31 +324,45 @@
 
   function initObservers() {
     // Section becomes "active" once it owns most of the viewport.
-    const active = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && e.intersectionRatio >= 0.55) {
-          setCurrent(Number(e.target.dataset.index));
-        }
-      });
-    }, { threshold: [0.25, 0.55, 0.8] });
+    const active = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio >= 0.55) {
+            setCurrent(Number(e.target.dataset.index));
+          }
+        });
+      },
+      { threshold: [0.25, 0.55, 0.8] },
+    );
 
     // Entrance animation — decoupled from the audio threshold so copy animates in early.
-    const reveal = new IntersectionObserver((entries) => {
-      entries.forEach((e) => e.target.classList.toggle("is-revealed", e.isIntersecting));
-    }, { threshold: 0.2 });
+    const reveal = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) =>
+          e.target.classList.toggle("is-revealed", e.isIntersecting),
+        );
+      },
+      { threshold: 0.2 },
+    );
 
-    sections.forEach((s) => { active.observe(s); reveal.observe(s); });
+    sections.forEach((s) => {
+      active.observe(s);
+      reveal.observe(s);
+    });
 
     // The outro owns the screen -> nothing should be playing. Resetting `current`
     // lets the last section re-activate when the user scrolls back up into it.
-    new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && e.intersectionRatio > 0.6) {
-          AudioEngine.clearActive();
-          current = -1;
-        }
-      });
-    }, { threshold: [0.6] }).observe(el.outro);
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.intersectionRatio > 0.6) {
+            AudioEngine.clearActive();
+            current = -1;
+          }
+        });
+      },
+      { threshold: [0.6] },
+    ).observe(el.outro);
   }
 
   function initProgress() {
@@ -331,9 +374,16 @@
       el.body.classList.toggle("is-scrolled", window.scrollY > 40);
       ticking = false;
     };
-    addEventListener("scroll", () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
+    addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
     update();
   }
 
@@ -343,25 +393,36 @@
     const t = q.trim().toLowerCase();
     if (!t) return [];
     return DATA.map((g, i) => ({ g, i }))
-      .filter(({ g }) =>
-        g.name.toLowerCase().includes(t) ||
-        g.family.toLowerCase().includes(t) ||
-        g.artists.toLowerCase().includes(t) ||
-        // the tagline the reader can actually see, so search matches the UI language
-        stripTerms(gtext(g, "tagline")).toLowerCase().includes(t))
+      .filter(
+        ({ g }) =>
+          g.name.toLowerCase().includes(t) ||
+          g.family.toLowerCase().includes(t) ||
+          g.artists.toLowerCase().includes(t) ||
+          // the tagline the reader can actually see, so search matches the UI language
+          stripTerms(gtext(g, "tagline")).toLowerCase().includes(t),
+      )
       .slice(0, 6);
   }
 
   function renderResults(q) {
     const found = matches(q);
     el.searchResults.innerHTML = found.length
-      ? found.map(({ g, i }) => `
+      ? found
+          .map(
+            ({ g, i }) => `
           <li><button type="button" data-jump="${i}" style="--accent:${g.accent}">
             <span class="res__name">${esc(g.name)}</span>
             <span class="res__meta">${esc(g.family)} · ${esc(g.bpm)} BPM</span>
-          </button></li>`).join("")
-      : (q.trim() ? `<li class="res__empty">${esc(ui("noMatch")(q.trim()))}</li>` : "");
-    el.searchResults.classList.toggle("is-open", el.searchResults.innerHTML !== "");
+          </button></li>`,
+          )
+          .join("")
+      : q.trim()
+        ? `<li class="res__empty">${esc(ui("noMatch")(q.trim()))}</li>`
+        : "";
+    el.searchResults.classList.toggle(
+      "is-open",
+      el.searchResults.innerHTML !== "",
+    );
   }
 
   function openSearch() {
@@ -380,13 +441,19 @@
 
   function initSearch() {
     el.searchToggle.addEventListener("click", () =>
-      el.search.classList.contains("is-open") ? closeSearch() : openSearch());
-    el.searchInput.addEventListener("input", (e) => renderResults(e.target.value));
+      el.search.classList.contains("is-open") ? closeSearch() : openSearch(),
+    );
+    el.searchInput.addEventListener("input", (e) =>
+      renderResults(e.target.value),
+    );
     el.searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeSearch();
       if (e.key === "Enter") {
         const first = el.searchResults.querySelector("button[data-jump]");
-        if (first) { goTo(Number(first.dataset.jump)); closeSearch(); }
+        if (first) {
+          goTo(Number(first.dataset.jump));
+          closeSearch();
+        }
       }
     });
   }
@@ -396,7 +463,7 @@
   const pop = {
     root: document.getElementById("termpop"),
     title: document.querySelector("#termpop .termpop__term"),
-    def: document.querySelector("#termpop .termpop__def")
+    def: document.querySelector("#termpop .termpop__def"),
   };
   let popOpen = false;
 
@@ -411,17 +478,24 @@
     // Anchor under the word, then clamp so it never leaves the viewport.
     const r = btn.getBoundingClientRect();
     const w = pop.root.offsetWidth;
-    const left = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
+    const left = Math.min(
+      Math.max(12, r.left + r.width / 2 - w / 2),
+      window.innerWidth - w - 12,
+    );
     const h = pop.root.offsetHeight;
     const below = r.bottom + 10;
     const fitsBelow = below + h < window.innerHeight - 12;
     // Clamp as a last resort: neither slot fits if the anchor is itself off-screen.
-    const top = Math.min(Math.max(12, fitsBelow ? below : r.top - h - 10),
-                         window.innerHeight - h - 12);
+    const top = Math.min(
+      Math.max(12, fitsBelow ? below : r.top - h - 10),
+      window.innerHeight - h - 12,
+    );
     pop.root.style.left = `${Math.round(left)}px`;
     pop.root.style.top = `${Math.round(top)}px`;
 
-    document.querySelectorAll(".term.is-open").forEach((n) => n.classList.remove("is-open"));
+    document
+      .querySelectorAll(".term.is-open")
+      .forEach((n) => n.classList.remove("is-open"));
     btn.classList.add("is-open");
   }
 
@@ -429,7 +503,9 @@
     if (!popOpen) return;
     pop.root.hidden = true;
     popOpen = false;
-    document.querySelectorAll(".term.is-open").forEach((n) => n.classList.remove("is-open"));
+    document
+      .querySelectorAll(".term.is-open")
+      .forEach((n) => n.classList.remove("is-open"));
     // A track may have finished while the definition was open — go now.
     if (pendingAdvance !== null) {
       const i = pendingAdvance;
@@ -450,18 +526,24 @@
   }
 
   function handleTrackEnd(index) {
-    if (index !== current) return;               // user already scrolled on
+    if (index !== current) return; // user already scrolled on
 
     if (REDUCED) {
       // Auto-scrolling is exactly the unrequested motion these users opted out
       // of, so just reset the section's play button instead.
       const btn = document.querySelector(`[data-play="${index}"]`);
-      if (btn) { btn.classList.remove("is-playing"); btn.textContent = "▶ Play this track"; }
+      if (btn) {
+        btn.classList.remove("is-playing");
+        btn.textContent = "▶ Play this track";
+      }
       return;
     }
 
     // Never yank the page out from under someone reading a definition.
-    if (popOpen) { pendingAdvance = index; return; }
+    if (popOpen) {
+      pendingAdvance = index;
+      return;
+    }
 
     advanceFrom(index);
   }
@@ -471,7 +553,10 @@
   function reflectSound(on) {
     el.body.classList.toggle("sound-on", on);
     el.soundToggle.setAttribute("aria-pressed", String(on));
-    el.soundToggle.setAttribute("aria-label", on ? ui("soundOff") : ui("soundOn"));
+    el.soundToggle.setAttribute(
+      "aria-label",
+      on ? ui("soundOff") : ui("soundOn"),
+    );
   }
 
   let toastShown = false;
@@ -489,13 +574,16 @@
     journeyStarted = true;
     el.body.classList.remove("is-locked");
     el.body.classList.add("is-started");
-    AudioEngine.unlock();               // must happen inside the click gesture
+    AudioEngine.unlock(); // must happen inside the click gesture
   }
 
   function initIntro() {
     el.begin.addEventListener("click", () => {
       start();
-      sections[0].scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
+      sections[0].scrollIntoView({
+        behavior: REDUCED ? "auto" : "smooth",
+        block: "start",
+      });
     });
     el.restart.addEventListener("click", () => {
       AudioEngine.clearActive();
@@ -508,10 +596,18 @@
   function initKeyboard() {
     addEventListener("keydown", (e) => {
       if (e.target.matches && e.target.matches("input, textarea")) return;
-      if (e.key === "/" ) { e.preventDefault(); openSearch(); return; }
-      if (e.key === "Escape") { closeTerm(); closeSearch(); return; }
-      const next = ["ArrowDown", "j", "J"].includes(e.key);
-      const prev = ["ArrowUp", "k", "K"].includes(e.key);
+      if (e.key === "/") {
+        e.preventDefault();
+        openSearch();
+        return;
+      }
+      if (e.key === "Escape") {
+        closeTerm();
+        closeSearch();
+        return;
+      }
+      const next = ["ArrowDown", "k", "K"].includes(e.key);
+      const prev = ["ArrowUp", "j", "J"].includes(e.key);
       if (!next && !prev) return;
       e.preventDefault();
       goTo(Math.min(DATA.length - 1, Math.max(0, current + (next ? 1 : -1))));
@@ -523,17 +619,26 @@
   function initDelegates() {
     document.addEventListener("click", (e) => {
       const termBtn = e.target.closest("[data-term]");
-      if (termBtn) { openTerm(termBtn); return; }
+      if (termBtn) {
+        openTerm(termBtn);
+        return;
+      }
       if (popOpen && !e.target.closest("#termpop")) closeTerm();
 
       const jump = e.target.closest("[data-jump]");
-      if (jump) { goTo(Number(jump.dataset.jump)); closeSearch(); return; }
+      if (jump) {
+        goTo(Number(jump.dataset.jump));
+        closeSearch();
+        return;
+      }
 
       const play = e.target.closest("[data-play]");
       if (play) {
         const i = Number(play.dataset.play);
         AudioEngine.playOnDemand(i);
-        document.querySelectorAll("[data-play]").forEach((b) => b.classList.remove("is-playing"));
+        document
+          .querySelectorAll("[data-play]")
+          .forEach((b) => b.classList.remove("is-playing"));
         play.classList.add("is-playing");
         play.textContent = ui("playing");
         return;
@@ -565,7 +670,11 @@
 
   AudioEngine.init(
     DATA.map((g) => ({ id: g.id, video: g.video, videoStart: g.videoStart })),
-    { onSoundChange: reflectSound, onFirstPlay: showToast, onTrackEnd: handleTrackEnd,
-      nativeControls: TOUCH_LAYOUT }
+    {
+      onSoundChange: reflectSound,
+      onFirstPlay: showToast,
+      onTrackEnd: handleTrackEnd,
+      nativeControls: TOUCH_LAYOUT,
+    },
   );
 })();

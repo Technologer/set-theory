@@ -236,21 +236,21 @@ const I18N_EN = {
       energy: "Relaxed, immersive",
       desc: "Ambient and downtempo prioritize atmosphere, texture, and space over dancefloor function. Ambient can drop rhythm entirely in favor of evolving soundscapes, while downtempo keeps a loose, slow [[groove|groove]]. Perfect for opening a set, chill-out rooms, or unwinding after a night out.",
       funFact: "Brian Eno coined the term \"ambient music\" in the 1978 liner notes to Music for Airports, describing it as music that should be \"as ignorable as it is interesting.\" Bonobo works the other side of that line — \"Kerala\" keeps a slow, loose groove, but the pull is still texture rather than any [[drop|drop]].",
-      videoNote: "Bonobo — \"Kerala\", a modern downtempo touchstone"
+      videoNote: "Bonobo — \"Kerala\" (2016), a modern downtempo touchstone"
     },
     "tropical-house": {
       tagline: "Sunny, radio-friendly house with marimba hooks.",
       energy: "Chill, sunny",
       desc: "A mellow, pop-adjacent house offshoot that emerged around 2014, built on marimba- and steel-drum-style melodies, laid-back [[percussion|percussion]], and singer-songwriter vocal [[hooks|hook]]. Tempo is noticeably slower than most house music, giving it a relaxed, beach-at-golden-hour feel.",
       funFact: "Kygo built his early hits, including \"Firestone,\" in his childhood bedroom in Norway using free trial software before he'd even played a real festival.",
-      videoNote: "Kygo ft. Conrad Sewell — \"Firestone\", the genre's signature hit"
+      videoNote: "Kygo ft. Conrad Sewell — \"Firestone\" (2014), the genre's signature hit"
     },
     "deep-house": {
       tagline: "House slowed down and dressed in jazz chords.",
       energy: "Warm, laid-back",
       desc: "Deep house takes house's groove and softens it: jazzy extended chords, warm [[sub-bass|sub-bass]] and atmospheric [[pads|pads]], with anything else kept understated and low in the mix. It prioritizes mood and texture over big moments.",
       funFact: "This is where deep house starts: Chicago's Larry Heard, recording as Mr. Fingers, reportedly built it almost entirely on a single Roland Juno-60. Everything the genre still does is already here — the softened groove, the warm sub-bass, the refusal to reach for a big moment. Disclosure were working from the same recipe a quarter-century later.",
-      videoNote: "Mr. Fingers — \"Can You Feel It\", the record deep house grew out of"
+      videoNote: "Mr. Fingers — \"Can You Feel It\" (1986), the record deep house grew out of"
     },
     "house": {
       tagline: "The 4/4 foundation nearly everything else is built on.",
@@ -271,63 +271,63 @@ const I18N_EN = {
       energy: "Driving, groovy",
       desc: "Tech house fuses house's bouncy groove with techno's stripped-back, repetitive [[percussion|percussion]] and rolling [[basslines|bassline]]. Vocals are sparse or chopped into rhythmic stabs — pure groove, built for [[peak-time|peak-time]] club sets.",
       funFact: "FISHER was a professional skateboarder in Australia before becoming one of tech house's biggest stars.",
-      videoNote: "Fisher — \"Losing It\", a tech house track that broke into the mainstream"
+      videoNote: "Fisher — \"Losing It\" (2018), a tech house track that broke into the mainstream"
     },
     "uk-garage": {
       tagline: "Shuffled house rhythms with pitched-up vocal chops.",
       energy: "Bouncy, soulful",
       desc: "UK garage grew out of London's mid-90s club scene, blending house's four-on-the-floor foundation with [[syncopated|syncopation]], [[shuffled|shuffle]] rhythms, [[pitched-up vocal samples|vocal-chop]], and deep sub-bass. Distinctly British bounce that directly influenced grime and dubstep.",
       funFact: "\"Re-Rewind\" helped launch Craig David's career — he was still a teenager working at a shoe shop in Southampton when Artful Dodger first invited him into the studio.",
-      videoNote: "Artful Dodger ft. Craig David — \"Re-Rewind\", a UK garage classic"
+      videoNote: "Artful Dodger ft. Craig David — \"Re-Rewind\" (1999), a UK garage classic"
     },
     "breakbeat": {
       tagline: "Sampled funk/hip-hop drum breaks instead of a straight kick.",
       energy: "Funky, punchy",
       desc: "An umbrella term for electronic music built on syncopated, sampled [[drum breaks|drum-break]] rather than a straight [[four-on-the-floor|four-on-the-floor]] kick. Roots trace to hip-hop and 90s UK rave, and it spawned offshoots like big beat, jungle, and nu-skool breaks.",
       funFact: "The Prodigy's Liam Howlett built many of the group's earliest breakbeat tracks using an Atari ST computer and a cheap [[sampler|sampler]], well before they became festival headliners.",
-      videoNote: "The Prodigy — \"Breathe\", a breakbeat/big-beat landmark"
+      videoNote: "The Prodigy — \"Breathe\" (1996), a breakbeat/big-beat landmark"
     },
     "future-house": {
       tagline: "Bouncy, pitched bass stabs built for festival mainstages.",
       energy: "Bouncy, playful",
       desc: "Future house layers house's groove with punchy, pitched/growling bass [[stabs|stab]] and syncopated [[basslines|bassline]], plus pop-structured [[drops|drop]]. Took off around 2014-2016, becoming a festival-mainstage staple thanks to its instantly catchy hooks.",
       funFact: "Tchami named the genre partly to distinguish his gospel-house-meets-bass sound from the increasingly generic \"EDM\" label of the mid-2010s.",
-      videoNote: "Tchami — \"Adieu\", a genre-defining future house anthem"
+      videoNote: "Tchami — \"Adieu\" (2017), a genre-defining future house anthem"
     },
     "progressive-house": {
       tagline: "Slow-building, cinematic, no rush to the drop.",
       energy: "Hypnotic build",
       desc: "Progressive house favors long, gradually evolving arrangements over sudden [[drops|drop]] — layers of melodic and percussive elements added and removed slowly across 6-8+ minutes. A journey rather than a moment.",
       funFact: "Eric Prydz's \"Opus\" builds for over four minutes before its first real drop — an extreme example of progressive house's patience-testing structure.",
-      videoNote: "Eric Prydz — \"Opus\", a modern progressive house landmark"
+      videoNote: "Eric Prydz — \"Opus\" (2015), a modern progressive house landmark"
     },
     "melodic-techno": {
       tagline: "Techno's drive plus progressive house's emotional pull.",
       energy: "Emotional, atmospheric",
       desc: "Melodic techno blends driving techno [[percussion|percussion]] with lush [[pads|pads]], [[arpeggios|arpeggio]], and often melancholic melodic lines borrowed from progressive house. The go-to sound for emotional sunset-to-night transitions at festivals.",
       funFact: "The Afterlife label and parties, co-founded by Tale Of Us, turned melodic techno into one of the biggest festival draws of the 2020s, often selling out arena-sized stages.",
-      videoNote: "Tale Of Us & Mind Against — \"Astral\", a defining melodic techno record"
+      videoNote: "Tale Of Us & Mind Against — \"Astral\" (2015), a defining melodic techno record"
     },
     "electro-house": {
       tagline: "Distorted synth-bass stabs, big brash drops.",
       energy: "Energetic, brash",
       desc: "Electro house injects house with punchy, [[distorted|distortion]] synth-bass \"[[stabs|stab]]\" and 80s-electro-inspired [[sound design|sound-design]], favoring bold, in-your-face drops over subtlety. It dominated the late-2000s/early-2010s EDM boom.",
       funFact: "Deadmau5's giant mouse-head helmet started as a cheap Canadian Halloween costume before becoming one of dance music's most recognizable visual brands.",
-      videoNote: "deadmau5 ft. Rob Swire — \"Ghosts 'n' Stuff\", a genre touchstone"
+      videoNote: "deadmau5 ft. Rob Swire — \"Ghosts 'n' Stuff\" (2009), a genre touchstone"
     },
     "big-room-house": {
       tagline: "Massive, simple, anthemic — built for 50,000 people.",
       energy: "Euphoric peak-time",
       desc: "Designed specifically for festival mainstages: a huge, simple, instantly-gripping [[drop|drop]] after a long [[tension-building|buildup]] intro. Subtlety isn't the point — impact on a huge crowd is.",
       funFact: "\"Animals\" by Martin Garrix was written when he was just 17 — it topped the UK Singles Chart and made him one of the youngest DJs ever to headline major festivals.",
-      videoNote: "Martin Garrix — \"Animals\", the track that defined the sound"
+      videoNote: "Martin Garrix — \"Animals\" (2013), the track that defined the sound"
     },
     "trance": {
       tagline: "Long builds, big breakdowns, hands-in-the-air euphoria.",
       energy: "Euphoric, emotional",
       desc: "Emerging from Germany in the early 90s, trance is built around extended [[build-ups|buildup]], an emotional [[breakdown|breakdown]], and a soaring, melodic [[synth-lead|synth-lead]] climax — designed to create a communal, arms-up moment on the dancefloor.",
       funFact: "Tiësto was the first DJ to play a live set at an Olympic opening ceremony, mixing during the athletes' parade in Athens in 2004 — and DJ Mag readers voted him the world's #1 three years running around the same period. \"Lethal Industry\" comes from exactly those years, when this long, melodic strain of trance was as big as dance music got.",
-      videoNote: "Tiësto — \"Lethal Industry\", a peak-era trance anthem"
+      videoNote: "Tiësto — \"Lethal Industry\" (2002), a peak-era trance anthem"
     },
     "techno": {
       tagline: "Machine-driven, repetitive, dark and futuristic.",
@@ -335,28 +335,28 @@ const I18N_EN = {
       energy: "Hypnotic, relentless",
       desc: "Born in Detroit in the mid-80s, techno strips dance music to its mechanical essence: relentless [[four-on-the-floor|four-on-the-floor]] rhythms, minimal melodic content, and a dark, futuristic atmosphere. The late-night/[[peak-time|peak-time]] backbone of club culture worldwide.",
       funFact: "Techno's Detroit originators (Juan Atkins, Derrick May, Kevin Saunderson) took their cues from German electronic band Kraftwerk and from futurist Alvin Toffler, whose book The Third Wave handed the scene its vocabulary. Four decades on, Charlotte de Witte is still working the same premise: machines, repetition, and no need for a chorus.",
-      videoNote: "Charlotte de Witte — \"Doppler\", a modern peak-time techno staple"
+      videoNote: "Charlotte de Witte — \"Doppler\" (2021), a modern peak-time techno staple"
     },
     "minimal-techno": {
       tagline: "Techno stripped to almost nothing — and it still moves you.",
       energy: "Sparse, meditative",
       desc: "Minimal techno reduces the genre to its bare essentials: [[looping|loop]] [[micro-samples|sample]], subtle textural shifts, very little melody, [[groove|groove]] created through tiny changes over long stretches of time.",
       funFact: "Richie Hawtin has performed entire DJ sets using nothing but a laptop and a handful of loops, proving how much groove minimal techno can squeeze from very little material.",
-      videoNote: "Richie Hawtin — Minimal Techno & IDM mix, showcasing the style in motion"
+      videoNote: "Richie Hawtin — Minimal Techno & IDM mix (2020), showcasing the style in motion"
     },
     "hard-techno": {
       tagline: "Faster, harder, more distorted — pure peak-time intensity.",
       energy: "Intense, aggressive",
       desc: "Hard techno pushes tempo and aggression further than standard techno, with [[distorted|distortion]], punishing [[kicks|kick]], sharp [[stabs|stab]], and relentless, closing-set energy.",
       funFact: "Amelie Lens started her label Lenske in 2018 and has since become one of the few artists to headline both underground warehouse raves and mainstage festival slots with the same hard-edged sound.",
-      videoNote: "Amelie Lens — \"In My Mind\", a driving hard techno cut"
+      videoNote: "Amelie Lens — \"In My Mind\" (2022), a driving hard techno cut"
     },
     "hardstyle": {
       tagline: "Distorted reverse-bass kicks meet euphoric trance melody.",
       energy: "Intense, euphoric",
       desc: "A Dutch genre combining hard techno's distorted, pitch-bent \"[[reverse bass|reverse-bass]]\" [[kick|kick]] drum with euphoric, trance-inspired melodies, alternating harder \"rawstyle\" sections with melodic euphoric peaks.",
       funFact: "Hardstyle's \"reverse bass\" kick — where the pitch rises rather than falls — is largely what separates it from hard techno and gives the genre its distinctive euphoric punch.",
-      videoNote: "Headhunterz — \"Dragonborn\", a hardstyle anthem"
+      videoNote: "Headhunterz — \"Dragonborn\" (2012), a hardstyle anthem"
     },
     "jungle": {
       tagline: "Drum & bass's rawer, reggae-infused older sibling.",
@@ -370,7 +370,7 @@ const I18N_EN = {
       energy: "Fast, propulsive",
       desc: "Drum & bass emerged from the UK's early-90s jungle and breakbeat hardcore scenes, defined by rapid, chopped [[breakbeats|drum-break]] paired with deep [[sub-bass|sub-bass]]. Feels propulsive rather than frantic — a great tool for peak-energy sets.",
       funFact: "Netsky released his first full album at just 20 years old and named his breakout single \"Rio\" after a trip that reshaped his sound with Brazilian rhythmic influences.",
-      videoNote: "Netsky ft. Digital Farm Animals — \"Rio\", a crossover DnB hit"
+      videoNote: "Netsky ft. Digital Farm Animals — \"Rio\" (2015), a crossover DnB hit"
     },
     "dubstep": {
       tagline: "Sparse and dark, or aggressive and drop-heavy.",
@@ -378,7 +378,7 @@ const I18N_EN = {
       energy: "Heavy, bass-forward",
       desc: "Dubstep began in early-2000s South London as sparse, bass-heavy, dub-influenced music built around [[syncopated|syncopation]] rhythms and a signature \"[[wobble|wobble]]\" bass. The US strand (\"brostep\") later pushed toward aggressive, mid-range growl-bass drops.",
       funFact: "Dubstep started in small South London record shops like Big Apple Records, where producers tested unreleased [[dubplates|dubplate]] on massive sound systems before anyone had heard the tracks anywhere else. \"Bangarang\" is what happened when that sub-bass culture crossed the Atlantic and traded the darkness and space for mid-range aggression.",
-      videoNote: "Skrillex ft. Sirah — \"Bangarang\", the brostep era's defining track"
+      videoNote: "Skrillex ft. Sirah — \"Bangarang\" (2011), the brostep era's defining track"
     },
     "trap-edm": {
       tagline: "Hip-hop's 808s and hi-hat rolls, festival-ified.",
@@ -386,21 +386,21 @@ const I18N_EN = {
       energy: "Hard-hitting, hype",
       desc: "EDM trap borrows Southern hip-hop's rapid [[hi-hat rolls|hihat-roll]], booming [[808|808]] sub-bass, and [[half-time|half-time]] drops, reframed for festival main stages.",
       funFact: "RL Grime originally studied jazz piano at USC before turning to production — classical training you can still hear in his layered, melodic trap arrangements.",
-      videoNote: "RL Grime — \"Core\", a defining EDM-trap release"
+      videoNote: "RL Grime — \"Core\" (2014), a defining EDM-trap release"
     },
     "psytrance": {
       tagline: "Hypnotic, psychedelic, born on Goa's beaches.",
       energy: "Trippy, driving",
       desc: "Psychedelic trance took root in Goa, India's rave scene in the late 80s/90s, evolving into a fast, hypnotic style built on rolling [[basslines|bassline]] and intricate, [[acid|acid]]-inspired [[sound design|sound-design]].",
       funFact: "Psytrance traces its roots to Goa, India in the late 1980s, where travelling backpackers and local DJs threw all-night beach parties blending Indian spirituality with early electronic music. A lot of those travellers were Israeli, and they carried the sound home — which is how a duo like Infected Mushroom made it one of Israel's biggest musical exports.",
-      videoNote: "Infected Mushroom — \"Becoming Insane\", a psytrance classic"
+      videoNote: "Infected Mushroom — \"Becoming Insane\" (2007), a psytrance classic"
     },
     "dance-pop": {
       tagline: "Song-structured, radio-ready electronic pop.",
       energy: "Broadly accessible",
       desc: "An umbrella for radio-friendly electronic music built around pop song structure and vocal [[hooks|hook]] rather than [[DJ-tool|dj-tool]] functionality — pulling from house, electro, and pop production alike.",
       funFact: "Avicii previewed \"Wake Me Up\" at Ultra in 2013 with live folk musicians on stage, and the dance crowd booed it. Months later it was number one in more than twenty countries. A record the dancefloor rejected for being too pop is a fitting place to end a guide about where genre lines actually fall.",
-      videoNote: "Avicii — \"Wake Me Up\", the EDM-pop crossover in its purest form"
+      videoNote: "Avicii — \"Wake Me Up\" (2013), the EDM-pop crossover in its purest form"
     }
   }
 };
