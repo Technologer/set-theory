@@ -357,7 +357,8 @@
         g.name.toLowerCase().includes(t) ||
         g.family.toLowerCase().includes(t) ||
         g.artists.toLowerCase().includes(t) ||
-        g.tagline.toLowerCase().includes(t))
+        // the tagline the reader can actually see, so search matches the UI language
+        gtext(g, "tagline").toLowerCase().includes(t))
       .slice(0, 6);
   }
 
