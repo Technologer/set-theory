@@ -242,8 +242,8 @@ const I18N_EN = {
       tagline: "Song-structured, radio-ready electronic pop.",
       energy: "Broadly accessible",
       desc: "An umbrella for radio-friendly electronic music built around pop song structure and vocal hooks rather than DJ-tool functionality — pulling from house, electro, and pop production alike.",
-      funFact: "Calvin Harris wrote, produced, and performed nearly every instrument on his early albums himself before becoming one of the highest-paid DJs in the world.",
-      videoNote: "Calvin Harris — \"Summer\", a genre-defining crossover hit"
+      funFact: "Avicii previewed \"Wake Me Up\" at Ultra in 2013 with live folk musicians on stage, and the dance crowd booed it. Months later it was number one in more than twenty countries. A record the dancefloor rejected for being too pop is a fitting place to end a guide about where genre lines actually fall.",
+      videoNote: "Avicii — \"Wake Me Up\", the EDM-pop crossover in its purest form"
     }
   }
 };

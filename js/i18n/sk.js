@@ -274,8 +274,8 @@ const I18N_SK = {
       tagline: "Pesničkovo stavaný, rádiový elektronický pop.",
       energy: "Široko prístupná",
       desc: "Zastrešujúci pojem pre rádiovú elektroniku postavenú na pesničkovej štruktúre a vokálnych hookoch, nie na funkcii DJského nástroja. Čerpá z housu, elektra aj popovej produkcie.",
-      funFact: "Calvin Harris si na prvých albumoch napísal, vyprodukoval a odohral takmer všetky nástroje sám — až potom sa z neho stal jeden z najlepšie platených DJov sveta.",
-      videoNote: "Calvin Harris — „Summer“, crossover hit, ktorý definoval žáner"
+      funFact: "Avicii predviedol „Wake Me Up“ na Ultre v roku 2013 so živými folkovými hudobníkmi na pódiu a tanečné publikum ho vypískalo. O pár mesiacov bola skladba jednotkou vo vyše dvadsiatich krajinách. Platňa, ktorú parket odmietol ako príliš popovú, je celkom vhodné miesto na záver sprievodcu o tom, kde vlastne hranice žánrov ležia.",
+      videoNote: "Avicii — „Wake Me Up“, crossover EDM-popu v najčistejšej podobe"
     }
   }
 };

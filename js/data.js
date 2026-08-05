@@ -135,6 +135,6 @@ const DATA = [
   // ===== ACT 6 — LAST RECORD =====
   { id: "dance-pop", act: 6, family: "Dance / Crossover", accent: "#ffd23d",
     name: "Dance / EDM-Pop",
-    bpm: "100–128", artists: "Calvin Harris, David Guetta, Avicii",
-    video: "ebXbLfLACGM", videoStart: 0 }
+    bpm: "100–128", artists: "Avicii, Calvin Harris, David Guetta",
+    video: "IcrbM1l_BoI", videoStart: 0 }
 ];
