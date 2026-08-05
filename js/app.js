@@ -26,6 +26,7 @@
     searchToggle: document.getElementById("search-toggle"),
     searchInput: document.getElementById("search-input"),
     searchResults: document.getElementById("search-results"),
+    langToggle: document.getElementById("lang-toggle"),
     toast: document.getElementById("toast")
   };
 
@@ -36,6 +37,156 @@
   const pad = (n) => String(n).padStart(2, "0");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  /* ================= i18n =================
+     English is the source: it lives in index.html and data.js, so nothing is
+     duplicated. A locale file supplies overrides only, and anything it omits
+     falls back to English — a half-finished translation still renders. */
+
+  const LANG_KEY = "set-theory-lang";
+  const LOCALES = { sk: typeof I18N_SK !== "undefined" ? I18N_SK : null };
+
+  // English UI strings that originate in app.js rather than in the HTML.
+  const EN_UI = {
+    factLabel: "Fun fact",
+    bpmLabel: "BPM",
+    energyLabel: "Energy",
+    artistsLabel: "Artists",
+    openYouTube: "Open on YouTube ↗",
+    embedError: "Embed blocked — use the YouTube link above.",
+    playTrack: "▶ Play this track",
+    playing: "▮▮ Playing",
+    soundOn: "Turn sound on",
+    soundOff: "Mute sound",
+    langToggle: "Prepnúť na slovenčinu",
+    noMatch: (q) => `No genre matches “${q}”`
+  };
+
+  // English snapshot of every translatable node in index.html, captured before
+  // the first translation so switching back needs no second copy of the copy.
+  const enSnapshot = { text: {}, html: {}, placeholder: {}, aria: {} };
+
+  function snapshotEnglish() {
+    document.querySelectorAll("[data-i18n]").forEach((n) =>
+      (enSnapshot.text[n.dataset.i18n] = n.textContent.trim()));
+    document.querySelectorAll("[data-i18n-html]").forEach((n) =>
+      (enSnapshot.html[n.dataset.i18nHtml] = n.innerHTML.trim()));
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) =>
+      (enSnapshot.placeholder[n.dataset.i18nPlaceholder] = n.placeholder));
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) =>
+      (enSnapshot.aria[n.dataset.i18nAriaLabel] = n.getAttribute("aria-label")));
+    enSnapshot.title = document.title;
+    enSnapshot.description =
+      document.querySelector('meta[name="description"]').getAttribute("content");
+  }
+
+  let lang = "en";
+
+  function detectLang() {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved === "en" || saved === "sk") return saved;
+    // Slovak only for Slovak browsers; everyone else gets English.
+    return (navigator.language || "").toLowerCase().startsWith("sk") ? "sk" : "en";
+  }
+
+  const locale = () => LOCALES[lang] || null;
+
+  function dig(obj, path) {
+    return path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  }
+
+  function ui(key) {
+    const v = dig(locale() && locale().ui, key);
+    return v !== undefined && v !== null ? v : EN_UI[key];
+  }
+
+  /** Genre copy: locale override, else the English field on the data object. */
+  function gtext(g, field) {
+    const loc = locale();
+    const v = loc && loc.genres[g.id] && loc.genres[g.id][field];
+    return v || g[field];
+  }
+
+  function actBlurb(act) {
+    const loc = locale();
+    const v = loc && loc.acts[act] && loc.acts[act].blurb;
+    return v || ACTS[act].blurb;
+  }
+
+  function applyLanguage() {
+    const loc = locale();
+    document.documentElement.lang = lang;
+
+    document.title = (loc && loc.meta.title) || enSnapshot.title;
+    document.querySelector('meta[name="description"]')
+      .setAttribute("content", (loc && loc.meta.description) || enSnapshot.description);
+
+    document.querySelectorAll("[data-i18n]").forEach((n) => {
+      const k = n.dataset.i18n;
+      n.textContent = dig(loc && loc.ui, k) || enSnapshot.text[k];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach((n) => {
+      const k = n.dataset.i18nHtml;
+      n.innerHTML = dig(loc && loc.ui, k) || enSnapshot.html[k];
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) => {
+      const k = n.dataset.i18nPlaceholder;
+      n.placeholder = dig(loc && loc.ui, k) || enSnapshot.placeholder[k];
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) => {
+      const k = n.dataset.i18nAriaLabel;
+      n.setAttribute("aria-label", dig(loc && loc.ui, k) || enSnapshot.aria[k]);
+    });
+
+    // Sections are patched in place rather than re-rendered: a re-render would
+    // tear out the live YouTube iframes and orphan the audio engine's players.
+    sections.forEach((s, i) => {
+      const g = DATA[i];
+      const q = (sel) => s.querySelector(sel);
+      const blurb = q(".genre__actblurb");
+      if (blurb) blurb.textContent = actBlurb(g.act);
+      q(".genre__tagline").textContent = gtext(g, "tagline");
+      q(".genre__desc").textContent = gtext(g, "desc");
+      q(".genre__factlabel").textContent = ui("factLabel");
+      q(".genre__fact p").textContent = gtext(g, "funFact");
+
+      const k = s.querySelectorAll(".pill__k");
+      k[0].textContent = ui("bpmLabel");
+      k[1].textContent = ui("energyLabel");
+      k[2].textContent = ui("artistsLabel");
+      const v = s.querySelectorAll(".pill__v");
+      v[0].textContent = gtext(g, "bpm");
+      v[1].textContent = gtext(g, "energy");
+
+      q(".genre__link").textContent = ui("openYouTube");
+      q(".genre__error").textContent = ui("embedError");
+      q(".genre__track").innerHTML =
+        `<span class="genre__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+         ${esc(gtext(g, "videoNote"))}`;
+
+      const play = q("[data-play]");
+      if (play && !play.classList.contains("is-playing")) play.textContent = ui("playTrack");
+    });
+
+    // Button advertises the language you'd switch TO.
+    el.langToggle.textContent = lang === "sk" ? "EN" : "SK";
+    el.langToggle.setAttribute("aria-label",
+      lang === "sk" ? "Switch to English" : "Prepnúť na slovenčinu");
+
+    reflectSound(AudioEngine.isSoundOn());
+    if (el.search.classList.contains("is-open")) renderResults(el.searchInput.value);
+  }
+
+  function initLang() {
+    snapshotEnglish();
+    lang = detectLang();
+    el.langToggle.addEventListener("click", () => {
+      lang = lang === "sk" ? "en" : "sk";
+      localStorage.setItem(LANG_KEY, lang);
+      applyLanguage();
+    });
+    applyLanguage();
+  }
 
   /* ================= render ================= */
 
@@ -218,7 +369,7 @@
             <span class="res__name">${esc(g.name)}</span>
             <span class="res__meta">${esc(g.family)} · ${esc(g.bpm.split(" ")[0])} BPM</span>
           </button></li>`).join("")
-      : (q.trim() ? `<li class="res__empty">No genre matches “${esc(q.trim())}”</li>` : "");
+      : (q.trim() ? `<li class="res__empty">${esc(ui("noMatch")(q.trim()))}</li>` : "");
     el.searchResults.classList.toggle("is-open", el.searchResults.innerHTML !== "");
   }
 
@@ -273,7 +424,7 @@
   function reflectSound(on) {
     el.body.classList.toggle("sound-on", on);
     el.soundToggle.setAttribute("aria-pressed", String(on));
-    el.soundToggle.setAttribute("aria-label", on ? "Mute sound" : "Turn sound on");
+    el.soundToggle.setAttribute("aria-label", on ? ui("soundOff") : ui("soundOn"));
   }
 
   let toastShown = false;
@@ -333,7 +484,7 @@
         AudioEngine.playOnDemand(i);
         document.querySelectorAll("[data-play]").forEach((b) => b.classList.remove("is-playing"));
         play.classList.add("is-playing");
-        play.textContent = "▮▮ Playing";
+        play.textContent = ui("playing");
         return;
       }
 
@@ -350,6 +501,7 @@
   /* ================= boot ================= */
 
   render();
+  initLang();
   initIntro();
   initObservers();
   initProgress();
