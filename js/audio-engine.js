@@ -11,6 +11,7 @@ const AudioEngine = (() => {
   const FADE_OUT_MS = 400;
   const KEEP_WINDOW = 2;      // destroy players further than this many sections away
   const PRELOAD_WINDOW = 1;   // create players for current section +/- this many
+  const PRELOAD_DELAY_MS = 2500;  // hold neighbours back so they don't starve the active track
 
   let tracks = [];            // [{ id, video, videoStart }]
   const players = new Map();  // index -> { player, ready, index }
@@ -132,11 +133,23 @@ const AudioEngine = (() => {
     });
   }
 
+  let preloadTimer = null;
+
   function ensureWindow(center) {
-    for (let i = center - PRELOAD_WINDOW; i <= center + PRELOAD_WINDOW; i++) {
-      if (i >= 0 && i < tracks.length) createPlayer(i);
-    }
+    // The section being listened to gets the connection to itself first. Creating
+    // three iframes at once had them all buffering in parallel, which is what
+    // made the active track sit on YouTube's spinner for many seconds — the
+    // player is sized to the viewport, so each one is fetching a large stream.
+    createPlayer(center);
     prunePlayers(center);
+
+    clearTimeout(preloadTimer);
+    preloadTimer = setTimeout(() => {
+      if (center !== activeIndex) return;   // user has scrolled on; skip it
+      for (let i = center - PRELOAD_WINDOW; i <= center + PRELOAD_WINDOW; i++) {
+        if (i >= 0 && i < tracks.length && i !== center) createPlayer(i);
+      }
+    }, PRELOAD_DELAY_MS);
   }
 
   /* ---------- volume fading ---------- */
@@ -146,15 +159,30 @@ const AudioEngine = (() => {
     if (id) { cancelAnimationFrame(id); fades.delete(index); }
   }
 
+  /** Set volume AND record it, so a resume can put it back. */
+  function setVol(entry, v) {
+    entry.vol = v;
+    try { entry.player.setVolume(v); } catch (e) { /* iframe torn down */ }
+  }
+
+  /** Current volume as the player actually has it, falling back to what we set. */
+  function volOf(entry) {
+    try {
+      const v = entry.player.getVolume();
+      if (typeof v === "number" && !isNaN(v)) return v;
+    } catch (e) { /* not ready */ }
+    return typeof entry.vol === "number" ? entry.vol : 0;
+  }
+
   function fade(index, from, to, ms, done) {
     const entry = players.get(index);
     if (!entry || !entry.ready) { done && done(); return; }
     cancelFade(index);
+    entry.target = to;               // where this fade is meant to land
     const t0 = performance.now();
     const step = (now) => {
       const p = Math.min(1, (now - t0) / ms);
-      const v = Math.round(from + (to - from) * p);
-      try { entry.player.setVolume(v); } catch (e) { /* iframe torn down */ }
+      setVol(entry, Math.round(from + (to - from) * p));
       if (p < 1) {
         fades.set(index, requestAnimationFrame(step));
       } else {
@@ -163,6 +191,15 @@ const AudioEngine = (() => {
       }
     };
     fades.set(index, requestAnimationFrame(step));
+  }
+
+  /** rAF stops firing while the tab is hidden, so a fade interrupted by a tab
+      switch would leave the volume frozen part-way — or at 0. Snap it home. */
+  function settleFade(index) {
+    const entry = players.get(index);
+    if (!entry || !entry.ready) return;
+    if (fades.has(index)) cancelFade(index);
+    if (typeof entry.target === "number") setVol(entry, entry.target);
   }
 
   /* ---------- playback ---------- */
@@ -179,7 +216,8 @@ const AudioEngine = (() => {
     const entry = players.get(index);
     if (!entry || !entry.ready) return;
     applyMuteState(entry);
-    try { entry.player.setVolume(0); entry.player.playVideo(); } catch (e) { return; }
+    setVol(entry, 0);
+    try { entry.player.playVideo(); } catch (e) { return; }
     fade(index, 0, TARGET_VOLUME, FADE_IN_MS);
     if (!firstPlayAnnounced) { firstPlayAnnounced = true; onFirstPlay(); }
   }
@@ -187,7 +225,9 @@ const AudioEngine = (() => {
   function stop(index) {
     const entry = players.get(index);
     if (!entry || !entry.ready) return;
-    fade(index, TARGET_VOLUME, 0, FADE_OUT_MS, () => {
+    // Fade from where the volume actually is. Assuming TARGET_VOLUME meant that
+    // interrupting a fade-in jumped the level UP before ramping down — audible.
+    fade(index, volOf(entry), 0, FADE_OUT_MS, () => {
       // Pause, don't destroy — scrolling back up should resume instantly.
       try { entry.player.pauseVideo(); } catch (e) { /* noop */ }
     });
@@ -195,12 +235,18 @@ const AudioEngine = (() => {
 
   // Browsers pause media in a backgrounded tab, and a paused embed draws
   // YouTube's own overlay. Resume the active section when the user comes back.
+  //
+  // Restoring playback alone was a bug: the fade runs on requestAnimationFrame,
+  // which is frozen while the tab is hidden. Switching away during the 600ms
+  // fade-in left the volume stuck at 0, so coming back resumed a *silent*
+  // video. Settle the fade and re-apply mute state before resuming.
   document.addEventListener("visibilitychange", () => {
     if (document.hidden || !started || activeIndex < 0) return;
     const entry = players.get(activeIndex);
-    if (entry && entry.ready) {
-      try { entry.player.playVideo(); } catch (e) { /* noop */ }
-    }
+    if (!entry || !entry.ready) return;
+    settleFade(activeIndex);
+    applyMuteState(entry);
+    try { entry.player.playVideo(); } catch (e) { /* noop */ }
   });
 
   /* ---------- public API ---------- */
@@ -266,13 +312,21 @@ const AudioEngine = (() => {
     getActive: () => activeIndex,
 
     /** Read-only snapshot for QA. YT states: -1 unstarted, 0 ended, 1 playing,
-        2 paused, 3 buffering, 5 cued. Exactly one player should ever report 1. */
+        2 paused, 3 buffering, 5 cued. Exactly one player should ever report 1.
+        Volume is included because a silently-playing player is a real failure
+        mode — a fade interrupted by a hidden tab used to leave it at 0. */
     states() {
       const out = {};
       players.forEach((entry, i) => {
-        let state = "not-ready";
-        try { if (entry.ready) state = entry.player.getPlayerState(); } catch (e) { state = "gone"; }
-        out[i] = state;
+        let state = "not-ready", vol = null, muted = null;
+        try {
+          if (entry.ready) {
+            state = entry.player.getPlayerState();
+            vol = entry.player.getVolume();
+            muted = entry.player.isMuted();
+          }
+        } catch (e) { state = "gone"; }
+        out[i] = { state, vol, muted, target: entry.target ?? null };
       });
       return { activeIndex, soundOn, started, players: out };
     },
