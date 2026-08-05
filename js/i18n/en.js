@@ -25,7 +25,7 @@ const I18N_EN = {
     searchPlaceholder: "Jump to a genre or artist…",
     soundOn: "Turn sound on",
     soundOff: "Mute sound",
-    playerToggle: "Enable video controls, so you can skip an ad",
+    playerToggle: "Let clicks reach the video — use this to skip an ad",
     langToggle: "Prepnúť na slovenčinu",
 
     factLabel: "Fun fact",

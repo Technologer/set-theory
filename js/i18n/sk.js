@@ -30,7 +30,7 @@ const I18N_SK = {
     searchPlaceholder: "Skoč na žáner alebo interpreta…",
     soundOn: "Zapnúť zvuk",
     soundOff: "Stlmiť zvuk",
-    playerToggle: "Zapnúť ovládanie videa, aby si mohol preskočiť reklamu",
+    playerToggle: "Nechať kliknutia dopadať na video — takto preskočíš reklamu",
     langToggle: "Switch to English",
 
     factLabel: "Zaujímavosť",

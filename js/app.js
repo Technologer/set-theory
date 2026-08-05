@@ -150,6 +150,11 @@
       .forEach((n) =>
         n.setAttribute("aria-label", ui(n.dataset.i18nAriaLabel)),
       );
+    // The player toggle is desktop-only, so hover always exists — a real tooltip
+    // is how a sighted mouse user discovers what the icon does.
+    document
+      .querySelectorAll("[data-i18n-title]")
+      .forEach((n) => n.setAttribute("title", ui(n.dataset.i18nTitle)));
 
     // Sections are patched in place rather than re-rendered: a re-render would
     // tear out the live YouTube iframes and orphan the audio engine's players.
