@@ -191,8 +191,8 @@ const I18N_SK = {
       tagline: "Dlhé stúpania, veľké breakdowny, ruky vo vzduchu.",
       energy: "Euforická, emotívna",
       desc: "Trance vznikol v Nemecku na začiatku 90. rokov. Stojí na dlhom budovaní, emotívnom breakdowne a vzlietajúcej melodickej syntezátorovej linke vo vrchole — celé je to postavené tak, aby na parkete vznikol spoločný moment s rukami vo vzduchu.",
-      funFact: "Armina van Buurena zvolili čitatelia DJ Mag rekordne päťkrát za najlepšieho DJa sveta — najmä vďaka jeho trance produkcii a dlhoročnej rádiovej relácii „A State of Trance“.",
-      videoNote: "Armin van Buuren ft. Trevor Guthrie — „This Is What It Feels Like“"
+      funFact: "Tiësto bol prvým DJom, ktorý hral naživo na otváracom ceremoniáli olympiády — mixoval počas nástupu športovcov v Aténach v roku 2004. Približne v tom istom období ho čitatelia DJ Mag trikrát po sebe zvolili za najlepšieho DJa sveta. „Lethal Industry“ je presne z tých rokov, keď bol tento dlhý, melodický trance tým najväčším, čo tanečná hudba mala.",
+      videoNote: "Tiësto — „Lethal Industry“, hymna z vrcholnej éry trancu"
     },
 
     "techno": {

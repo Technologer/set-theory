@@ -169,8 +169,8 @@ const I18N_EN = {
       tagline: "Long builds, big breakdowns, hands-in-the-air euphoria.",
       energy: "Euphoric, emotional",
       desc: "Emerging from Germany in the early 90s, trance is built around extended build-ups, an emotional breakdown, and a soaring, melodic synth-lead climax — designed to create a communal, arms-up moment on the dancefloor.",
-      funFact: "Armin van Buuren has been voted #1 DJ in the world by DJ Mag readers a record five times, largely on the strength of his trance productions and his long-running radio show \"A State of Trance.\"",
-      videoNote: "Armin van Buuren ft. Trevor Guthrie — \"This Is What It Feels Like\""
+      funFact: "Tiësto was the first DJ to play a live set at an Olympic opening ceremony, mixing during the athletes' parade in Athens in 2004 — and DJ Mag readers voted him the world's #1 three years running around the same period. \"Lethal Industry\" comes from exactly those years, when this long, melodic strain of trance was as big as dance music got.",
+      videoNote: "Tiësto — \"Lethal Industry\", a peak-era trance anthem"
     },
     "techno": {
       tagline: "Machine-driven, repetitive, dark and futuristic.",

@@ -89,8 +89,8 @@ const DATA = [
     video: "gCYcHz2k5x0", videoStart: 0 },
   { id: "trance", act: 3, family: "Trance", accent: "#7c4dff",
     name: "Trance",
-    bpm: "130–140", artists: "Armin van Buuren, Above & Beyond, Paul van Dyk",
-    video: "BR_DFMUzX4E", videoStart: 0 },
+    bpm: "130–140", artists: "Tiësto, Armin van Buuren, Above & Beyond, Paul van Dyk",
+    video: "bgz2SWdKqvQ", videoStart: 0 },
 
   // ===== ACT 4 — PEAK TIME =====
   { id: "techno", act: 4, family: "Techno", accent: "#3dc9ff",
