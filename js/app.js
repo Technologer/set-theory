@@ -31,6 +31,7 @@
     searchInput: document.getElementById("search-input"),
     searchResults: document.getElementById("search-results"),
     langToggle: document.getElementById("lang-toggle"),
+    playerToggle: document.getElementById("player-toggle"),
     toast: document.getElementById("toast"),
   };
 
@@ -645,6 +646,15 @@
       }
 
       if (!el.search.contains(e.target)) closeSearch();
+    });
+
+    // Hands pointer control to the embedded player. Needed because YouTube's
+    // Skip Ad button lives inside a cross-origin iframe and nothing else can
+    // reach it — but left on permanently it would make stray background clicks
+    // pause the track, so it is deliberately a toggle.
+    el.playerToggle.addEventListener("click", () => {
+      const on = el.body.classList.toggle("player-interactive");
+      el.playerToggle.setAttribute("aria-pressed", String(on));
     });
 
     el.soundToggle.addEventListener("click", () => {

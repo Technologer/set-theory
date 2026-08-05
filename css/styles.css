@@ -457,6 +457,11 @@ body.is-started .rail { opacity: 1; visibility: visible; }
   pointer-events: none;
 }
 
+/* Decorative layers sit above the iframe, so they must never intercept a click
+   — otherwise they swallow the taps meant for YouTube's Skip Ad button. */
+.genre__scrim,
+.genre__aurora { pointer-events: none; }
+
 .genre__scrim {
   position: absolute;
   inset: 0;
@@ -834,6 +839,24 @@ body.is-started .rail { opacity: 1; visibility: visible; }
   font-variant-numeric: tabular-nums;
 }
 
+/* Opt-in player interaction. The desktop video is full-bleed, so making it
+   permanently clickable would mean every click on empty background paused the
+   music — including the click that dismisses a glossary popover. Off by default;
+   the topbar button hands control over when there is an ad to skip. */
+body.player-interactive .genre.is-current .genre__video iframe { pointer-events: auto; }
+body.player-interactive .genre.is-current .genre__video { cursor: pointer; }
+
+/* .genre__content spans the full width and paints above the video, so on its own
+   the rule above achieves nothing — every click still lands on the text layer.
+   While the toggle is on, empty content area passes clicks through; the things
+   worth clicking keep taking them. */
+body.player-interactive .genre.is-current .genre__content { pointer-events: none; }
+body.player-interactive .genre.is-current .genre__content a,
+body.player-interactive .genre.is-current .genre__content button { pointer-events: auto; }
+
+.iconbtn--player svg { width: 13px; height: 13px; fill: currentColor; stroke: none; }
+body.player-interactive .iconbtn--player { border-color: var(--now-accent); color: var(--now-accent); }
+
 /* ============================ GLOSSARY ============================ */
 
 /* Marked terms carry no line at rest — an underline every few words shreds the
@@ -945,6 +968,10 @@ body.is-started .rail { opacity: 1; visibility: visible; }
   /* Only the section on screen accepts taps. The others are opacity:0 but still
      laid out, so leaving them interactive would mean tapping an invisible video. */
   .genre.is-current .genre__video iframe { pointer-events: auto; }
+
+  /* The player is already interactive here, so the opt-in toggle would do
+     nothing — drop it rather than crowd the narrowest toolbar with a no-op. */
+  .iconbtn--player { display: none; }
 
   /* The scrim sits above the iframe, so it would swallow every tap. Keep it
      decorative only and let the controls underneath receive them. */
