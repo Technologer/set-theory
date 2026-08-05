@@ -44,6 +44,9 @@ const I18N_EN = {
     outroNote: "<strong>About those six acts:</strong> <em>warm-up</em> and <em>peak time</em> are real DJ vocabulary — you'll see them in booking emails and on Beatport. <em>The build</em>, <em>after hours</em> and <em>last record</em> describe real moments but aren't fixed terms, and the six-act structure is a teaching device rather than an industry standard. Most DJs think in three phases: opening, peak, closing.",
     restart: "Back to the top ↑",
 
+    recapTitle: "All 24, at a glance",
+    recapSub: "Every genre in set order with its tempo — the quickest way to see which ones sit close enough to mix.",
+
     craftTitle: "How a set actually gets built",
     craftSub: "The conventions behind the order you just scrolled through.",
     craft: [

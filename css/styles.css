@@ -787,18 +787,26 @@ body.is-started .rail { opacity: 1; visibility: visible; }
 
 .craft__item p { font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
 
+/* The recap grid is a tempo reference as much as navigation — and it is the
+   only jump nav on mobile, where the side rail is hidden. The heading says so. */
+.recap-block { margin-bottom: 44px; }
+
 .outro__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 8px;
-  margin-bottom: 44px;
   text-align: left;
 }
 
+/* Two columns, two rows: the index sits in its own column, the name takes the
+   full remaining width, and the BPM drops onto its own line beneath it. Sharing
+   one line meant the name had ~44px and its text spilled out of the tile. As a
+   bonus the tempos now line up in a column, which is what this grid is for. */
 .recap {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 8px;
   align-items: baseline;
-  gap: 8px;
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--line);
@@ -807,9 +815,24 @@ body.is-started .rail { opacity: 1; visibility: visible; }
 }
 
 .recap:hover { background: rgba(255, 255, 255, 0.06); transform: translateY(-2px); }
-.recap__n { font-size: 10px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-.recap__name { font-size: 13px; font-weight: 500; }
-.recap__bpm { margin-left: auto; font-size: 10px; color: var(--accent); white-space: nowrap; }
+.recap__n {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 10px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.recap__name { grid-column: 2; grid-row: 1; min-width: 0; font-size: 13px; font-weight: 500; }
+
+.recap__bpm {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 10px;
+  color: var(--accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 
 /* ============================ TOAST ============================ */
 

@@ -49,6 +49,9 @@ const I18N_SK = {
     outroNote: "<strong>K tým šiestim aktom:</strong> <em>warm-up</em> a <em>peak time</em> sú reálne DJ pojmy — stretneš ich v bookingových mailoch aj na Beatporte. <em>The build</em>, <em>after hours</em> a <em>last record</em> opisujú skutočné momenty, ale nie sú ustálené termíny, a samotná štruktúra šiestich aktov je učebná pomôcka, nie odvetvový štandard. Väčšina DJov rozmýšľa v troch fázach: opening, peak, closing.",
     restart: "Späť na začiatok ↑",
 
+    recapTitle: "Všetkých 24 na jednom mieste",
+    recapSub: "Každý žáner v poradí ako v sete, aj s tempom — najrýchlejší spôsob, ako vidieť, ktoré sú si dosť blízko na zmixovanie.",
+
     craftTitle: "Ako sa set naozaj stavia",
     craftSub: "Konvencie za poradím, ktorým si práve prešiel.",
     craft: [
