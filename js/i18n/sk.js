@@ -1,6 +1,6 @@
 /* Set Theory — Slovak strings.
-   English lives in index.html and data.js; this file only carries overrides,
-   so video IDs, BPM numbers, accents and artist names are never duplicated.
+   Mirror of js/i18n/en.js. data.js holds the language-neutral facts, so video
+   IDs, BPM numbers, accents and artist names are never duplicated here.
 
    Deliberately NOT translated:
    - Genre names ("Deep House", "Drum & Bass") — proper nouns, used in English
@@ -77,14 +77,14 @@ const I18N_SK = {
     6: { blurb: "Rozsvieti sa. Pošli ich domov so spevom." }
   },
 
-  /* Per-genre copy. `bpm` is overridden only where the English carries a
-     parenthetical note — plain ranges fall through to data.js unchanged.
+  /* Per-genre copy. `bpmNote` is the parenthetical after the BPM range; the
+     range itself is a number and lives in data.js.
      Deliberately loose rather than literal: the English idioms are re-said the
      way someone from the scene would say them, not word-for-word. */
   genres: {
     "ambient-downtempo": {
       tagline: "Pomalé, textúrové — nálada pred pohybom.",
-      bpm: "60–110 (ambient môže byť aj bez beatu)",
+      bpmNote: "ambient môže byť aj bez beatu",
       energy: "Pokojná, pohlcujúca",
       desc: "Ambient a downtempo stavajú na atmosfére, textúre a priestore — nie na tom, či sa na to dá tancovať. Ambient vie rytmus opustiť úplne a nechať znieť len plynúce zvukové plochy, downtempo si drží voľný, pomalý groove. Ideálne na otvorenie setu, do chill-out miestnosti alebo na dojazd po nočnej.",
       funFact: "Pojem „ambient music“ zaviedol Brian Eno v roku 1978 v texte k albumu Music for Airports — písal, že taká hudba má byť rovnako ľahko prehliadnuteľná ako zaujímavá. Bonobo stojí na druhej strane tej hranice: „Kerala“ si drží pomalý, voľný groove, ale ťahá ťa textúra, nie drop.",
@@ -197,7 +197,7 @@ const I18N_SK = {
 
     "techno": {
       tagline: "Strojové, repetitívne, temné a futuristické.",
-      bpm: "125–150 (bežne ~128–135)",
+      bpmNote: "bežne ~128–135",
       energy: "Hypnotická, neúprosná",
       desc: "Techno sa zrodilo v Detroite v polovici 80. rokov a zredukovalo tanečnú hudbu na jej strojovú podstatu: neúprosný four-on-the-floor rytmus, minimum melódie a temnú, futuristickú atmosféru. Je to chrbtová kosť nočných a peak-time momentov v kluboch po celom svete.",
       funFact: "Detroitskí zakladatelia techna (Juan Atkins, Derrick May, Kevin Saunderson) čerpali z nemeckých Kraftwerk a z futurológa Alvina Tofflera, ktorého kniha The Third Wave dala scéne slovník. O štyri dekády neskôr pracuje Charlotte de Witte s rovnakým zadaním: stroje, opakovanie a žiadny refrén.",
@@ -246,7 +246,7 @@ const I18N_SK = {
 
     "dubstep": {
       tagline: "Riedky a temný, alebo agresívny a plný dropov.",
-      bpm: "138–142 (vnímané v half-time)",
+      bpmNote: "vnímané v half-time",
       energy: "Ťažká, basová",
       desc: "Dubstep vznikol na začiatku nultých rokov v južnom Londýne ako riedka, basovo ťažká hudba ovplyvnená dubom, postavená na synkopovanom rytme a charakteristickom „wobble“ base. Americká vetva („brostep“) ho neskôr posunula k agresívnym dropom s vrčiacimi strednými polohami.",
       funFact: "Dubstep sa rodil v malých predajniach platní v južnom Londýne, napríklad v Big Apple Records, kde producenti skúšali nevydané dubplates na obrovských sound systémoch skôr, než ich ktokoľvek inde počul. „Bangarang“ je to, čo sa stalo, keď táto sub-bassová kultúra prešla cez Atlantik a vymenila temnotu a priestor za agresiu v stredných polohách.",
@@ -255,7 +255,7 @@ const I18N_SK = {
 
     "trap-edm": {
       tagline: "808-ky a hi-hat rolky z hip-hopu, prerobené pre festivaly.",
-      bpm: "130–170 (half-time feel, ~65–85 na dobu)",
+      bpmNote: "half-time feel, ~65–85 na dobu",
       energy: "Úderná, hype",
       desc: "EDM trap si požičiava rýchle hi-hat rolky, dunivý 808 sub-bass a half-time dropy z južanského hip-hopu a prerába ich pre festivalové mainstage.",
       funFact: "RL Grime pôvodne študoval jazzový klavír na USC a až potom sa dal na produkciu — to klasické školenie je v jeho vrstvených, melodických trapových aranžmánoch stále počuť.",

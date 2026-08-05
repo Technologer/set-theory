@@ -39,48 +39,19 @@
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   /* ================= i18n =================
-     English is the source: it lives in index.html and data.js, so nothing is
-     duplicated. A locale file supplies overrides only, and anything it omits
-     falls back to English — a half-finished translation still renders. */
+     Every locale is a peer: js/i18n/<lang>.js holds all of that language's
+     prose, data.js holds only language-neutral facts, and index.html holds no
+     copy at all. English doubles as the fallback, so a key a locale omits is
+     read from English and a partial translation still renders. */
 
   const LANG_KEY = "set-theory-lang";
-  const LOCALES = { sk: typeof I18N_SK !== "undefined" ? I18N_SK : null };
-
-  // English UI strings that originate in app.js rather than in the HTML.
-  const EN_UI = {
-    factLabel: "Fun fact",
-    bpmLabel: "BPM",
-    energyLabel: "Energy",
-    artistsLabel: "Artists",
-    openYouTube: "Open on YouTube ↗",
-    embedError: "Embed blocked — use the YouTube link above.",
-    playTrack: "▶ Play this track",
-    playing: "▮▮ Playing",
-    soundOn: "Turn sound on",
-    soundOff: "Mute sound",
-    langToggle: "Prepnúť na slovenčinu",
-    noMatch: (q) => `No genre matches “${q}”`
+  const FALLBACK = "en";
+  const LOCALES = {
+    en: typeof I18N_EN !== "undefined" ? I18N_EN : null,
+    sk: typeof I18N_SK !== "undefined" ? I18N_SK : null
   };
 
-  // English snapshot of every translatable node in index.html, captured before
-  // the first translation so switching back needs no second copy of the copy.
-  const enSnapshot = { text: {}, html: {}, placeholder: {}, aria: {} };
-
-  function snapshotEnglish() {
-    document.querySelectorAll("[data-i18n]").forEach((n) =>
-      (enSnapshot.text[n.dataset.i18n] = n.textContent.trim()));
-    document.querySelectorAll("[data-i18n-html]").forEach((n) =>
-      (enSnapshot.html[n.dataset.i18nHtml] = n.innerHTML.trim()));
-    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) =>
-      (enSnapshot.placeholder[n.dataset.i18nPlaceholder] = n.placeholder));
-    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) =>
-      (enSnapshot.aria[n.dataset.i18nAriaLabel] = n.getAttribute("aria-label")));
-    enSnapshot.title = document.title;
-    enSnapshot.description =
-      document.querySelector('meta[name="description"]').getAttribute("content");
-  }
-
-  let lang = "en";
+  let lang = FALLBACK;
 
   function detectLang() {
     const saved = localStorage.getItem(LANG_KEY);
@@ -89,54 +60,52 @@
     return (navigator.language || "").toLowerCase().startsWith("sk") ? "sk" : "en";
   }
 
-  const locale = () => LOCALES[lang] || null;
+  const locale = () => LOCALES[lang] || LOCALES[FALLBACK];
 
   function dig(obj, path) {
     return path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), obj);
   }
 
   function ui(key) {
-    const v = dig(locale() && locale().ui, key);
-    return v !== undefined && v !== null ? v : EN_UI[key];
+    const v = dig(locale().ui, key);
+    return v !== undefined && v !== null ? v : dig(LOCALES[FALLBACK].ui, key);
   }
 
-  /** Genre copy: locale override, else the English field on the data object. */
+  /** Genre copy, falling back to English per field. */
   function gtext(g, field) {
-    const loc = locale();
-    const v = loc && loc.genres[g.id] && loc.genres[g.id][field];
-    return v || g[field];
+    const here = locale().genres[g.id];
+    const back = LOCALES[FALLBACK].genres[g.id];
+    return (here && here[field]) || (back && back[field]) || "";
+  }
+
+  /** BPM range (neutral, from data.js) plus the translated parenthetical. */
+  function gbpm(g) {
+    const note = gtext(g, "bpmNote");
+    return note ? `${g.bpm} (${note})` : g.bpm;
   }
 
   function actBlurb(act) {
-    const loc = locale();
-    const v = loc && loc.acts[act] && loc.acts[act].blurb;
-    return v || ACTS[act].blurb;
+    const here = locale().acts[act];
+    const back = LOCALES[FALLBACK].acts[act];
+    return (here && here.blurb) || (back && back.blurb) || "";
   }
 
   function applyLanguage() {
     const loc = locale();
     document.documentElement.lang = lang;
 
-    document.title = (loc && loc.meta.title) || enSnapshot.title;
+    document.title = loc.meta.title;
     document.querySelector('meta[name="description"]')
-      .setAttribute("content", (loc && loc.meta.description) || enSnapshot.description);
+      .setAttribute("content", loc.meta.description);
 
-    document.querySelectorAll("[data-i18n]").forEach((n) => {
-      const k = n.dataset.i18n;
-      n.textContent = dig(loc && loc.ui, k) || enSnapshot.text[k];
-    });
-    document.querySelectorAll("[data-i18n-html]").forEach((n) => {
-      const k = n.dataset.i18nHtml;
-      n.innerHTML = dig(loc && loc.ui, k) || enSnapshot.html[k];
-    });
-    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) => {
-      const k = n.dataset.i18nPlaceholder;
-      n.placeholder = dig(loc && loc.ui, k) || enSnapshot.placeholder[k];
-    });
-    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) => {
-      const k = n.dataset.i18nAriaLabel;
-      n.setAttribute("aria-label", dig(loc && loc.ui, k) || enSnapshot.aria[k]);
-    });
+    document.querySelectorAll("[data-i18n]").forEach((n) =>
+      (n.textContent = ui(n.dataset.i18n)));
+    document.querySelectorAll("[data-i18n-html]").forEach((n) =>
+      (n.innerHTML = ui(n.dataset.i18nHtml)));
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((n) =>
+      (n.placeholder = ui(n.dataset.i18nPlaceholder)));
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((n) =>
+      n.setAttribute("aria-label", ui(n.dataset.i18nAriaLabel)));
 
     // Sections are patched in place rather than re-rendered: a re-render would
     // tear out the live YouTube iframes and orphan the audio engine's players.
@@ -155,7 +124,7 @@
       k[1].textContent = ui("energyLabel");
       k[2].textContent = ui("artistsLabel");
       const v = s.querySelectorAll(".pill__v");
-      v[0].textContent = gtext(g, "bpm");
+      v[0].textContent = gbpm(g);
       v[1].textContent = gtext(g, "energy");
 
       q(".genre__link").textContent = ui("openYouTube");
@@ -178,8 +147,6 @@
   }
 
   function initLang() {
-    snapshotEnglish();
-    lang = detectLang();
     el.langToggle.addEventListener("click", () => {
       lang = lang === "sk" ? "en" : "sk";
       localStorage.setItem(LANG_KEY, lang);
@@ -210,33 +177,33 @@
           <span class="genre__num">${pad(i + 1)} / ${pad(DATA.length)}</span>
         </div>
 
-        ${first ? `<p class="genre__actblurb">${esc(act.blurb)}</p>` : ""}
+        ${first ? `<p class="genre__actblurb">${esc(actBlurb(g.act))}</p>` : ""}
 
         <h2 class="genre__name" id="${g.id}-name">${esc(g.name)}</h2>
-        <p class="genre__tagline">${esc(g.tagline)}</p>
-        <p class="genre__desc">${esc(g.desc)}</p>
+        <p class="genre__tagline">${esc(gtext(g, "tagline"))}</p>
+        <p class="genre__desc">${esc(gtext(g, "desc"))}</p>
 
         <div class="genre__fact">
-          <span class="genre__factlabel">Fun fact</span>
-          <p>${esc(g.funFact)}</p>
+          <span class="genre__factlabel">${esc(ui("factLabel"))}</span>
+          <p>${esc(gtext(g, "funFact"))}</p>
         </div>
 
         <ul class="pills">
-          <li class="pill"><span class="pill__k">BPM</span><span class="pill__v">${esc(g.bpm)}</span></li>
-          <li class="pill"><span class="pill__k">Energy</span><span class="pill__v">${esc(g.energy)}</span></li>
-          <li class="pill pill--wide"><span class="pill__k">Artists</span><span class="pill__v">${esc(g.artists)}</span></li>
+          <li class="pill"><span class="pill__k">${esc(ui("bpmLabel"))}</span><span class="pill__v">${esc(gbpm(g))}</span></li>
+          <li class="pill"><span class="pill__k">${esc(ui("energyLabel"))}</span><span class="pill__v">${esc(gtext(g, "energy"))}</span></li>
+          <li class="pill pill--wide"><span class="pill__k">${esc(ui("artistsLabel"))}</span><span class="pill__v">${esc(g.artists)}</span></li>
         </ul>
 
         <div class="genre__foot">
           <p class="genre__track">
             <span class="genre__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            ${esc(g.videoNote)}
+            ${esc(gtext(g, "videoNote"))}
           </p>
           <div class="genre__actions">
-            ${REDUCED ? `<button class="btn-play" type="button" data-play="${i}">▶ Play this track</button>` : ""}
-            <a class="genre__link" href="https://www.youtube.com/watch?v=${g.video}" target="_blank" rel="noopener">Open on YouTube ↗</a>
+            ${REDUCED ? `<button class="btn-play" type="button" data-play="${i}">${esc(ui("playTrack"))}</button>` : ""}
+            <a class="genre__link" href="https://www.youtube.com/watch?v=${g.video}" target="_blank" rel="noopener">${esc(ui("openYouTube"))}</a>
           </div>
-          <p class="genre__error">Embed blocked — use the YouTube link above.</p>
+          <p class="genre__error">${esc(ui("embedError"))}</p>
         </div>
       </div>
     </section>`;
@@ -262,7 +229,7 @@
       <button class="recap" type="button" data-jump="${i}" style="--accent:${g.accent}">
         <span class="recap__n">${pad(i + 1)}</span>
         <span class="recap__name">${esc(g.name)}</span>
-        <span class="recap__bpm">${esc(g.bpm.split(" ")[0])} BPM</span>
+        <span class="recap__bpm">${esc(g.bpm)} BPM</span>
       </button>`).join("");
   }
 
@@ -368,7 +335,7 @@
       ? found.map(({ g, i }) => `
           <li><button type="button" data-jump="${i}" style="--accent:${g.accent}">
             <span class="res__name">${esc(g.name)}</span>
-            <span class="res__meta">${esc(g.family)} · ${esc(g.bpm.split(" ")[0])} BPM</span>
+            <span class="res__meta">${esc(g.family)} · ${esc(g.bpm)} BPM</span>
           </button></li>`).join("")
       : (q.trim() ? `<li class="res__empty">${esc(ui("noMatch")(q.trim()))}</li>` : "");
     el.searchResults.classList.toggle("is-open", el.searchResults.innerHTML !== "");
@@ -501,6 +468,7 @@
 
   /* ================= boot ================= */
 
+  lang = detectLang();
   render();
   initLang();
   initIntro();
