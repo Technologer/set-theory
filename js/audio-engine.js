@@ -23,6 +23,7 @@ const AudioEngine = (() => {
   let activeIndex = -1;
   let started = false;        // journey begun (user gesture registered)
   let enabled = true;         // false under prefers-reduced-motion
+  let nativeControls = false; // mobile: let YouTube's own UI drive playback
   let onSoundChange = () => {};
   let onFirstPlay = () => {};
   let onTrackEnd = () => {};
@@ -77,9 +78,12 @@ const AudioEngine = (() => {
       videoId: track.video,
       playerVars: {
         autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        fs: 0,
+        // With native controls the viewer gets play/pause, seek and — the only
+        // way to reach it at all — YouTube's own Skip Ad button. That button is
+        // inside a cross-origin iframe, so no custom control can trigger it.
+        controls: nativeControls ? 1 : 0,
+        disablekb: nativeControls ? 0 : 1,
+        fs: nativeControls ? 1 : 0,
         iv_load_policy: 3,
         modestbranding: 1,
         playsinline: 1,
@@ -94,6 +98,14 @@ const AudioEngine = (() => {
           if (index === activeIndex && started) play(index);
         },
         onStateChange: (e) => {
+          // A pause we did not initiate is the viewer tapping pause. Remember it,
+          // so nothing in the engine helpfully starts the track up again.
+          if (e.data === YT.PlayerState.PAUSED) {
+            if (!entry.enginePaused) entry.userPaused = true;
+            entry.enginePaused = false;
+            return;
+          }
+          if (e.data === YT.PlayerState.PLAYING) { entry.userPaused = false; return; }
           if (e.data !== YT.PlayerState.ENDED) return;
           // Rewind and park the finished track so scrolling back to it starts
           // clean, and so YouTube's end-screen grid never stays on display.
@@ -216,6 +228,7 @@ const AudioEngine = (() => {
     const entry = players.get(index);
     if (!entry || !entry.ready) return;
     applyMuteState(entry);
+    entry.userPaused = false;
     setVol(entry, 0);
     try { entry.player.playVideo(); } catch (e) { return; }
     fade(index, 0, TARGET_VOLUME, FADE_IN_MS);
@@ -229,6 +242,7 @@ const AudioEngine = (() => {
     // interrupting a fade-in jumped the level UP before ramping down — audible.
     fade(index, volOf(entry), 0, FADE_OUT_MS, () => {
       // Pause, don't destroy — scrolling back up should resume instantly.
+      entry.enginePaused = true;
       try { entry.player.pauseVideo(); } catch (e) { /* noop */ }
     });
   }
@@ -244,6 +258,7 @@ const AudioEngine = (() => {
     if (document.hidden || !started || activeIndex < 0) return;
     const entry = players.get(activeIndex);
     if (!entry || !entry.ready) return;
+    if (entry.userPaused) return;      // the viewer paused on purpose; leave it
     settleFade(activeIndex);
     applyMuteState(entry);
     try { entry.player.playVideo(); } catch (e) { /* noop */ }
@@ -259,6 +274,7 @@ const AudioEngine = (() => {
       onSoundChange = opts.onSoundChange || onSoundChange;
       onFirstPlay = opts.onFirstPlay || onFirstPlay;
       onTrackEnd = opts.onTrackEnd || onTrackEnd;
+      nativeControls = !!opts.nativeControls;
       if (!enabled) return;
       await loadApi();
       // The API usually resolves after the first section is already active,
@@ -326,9 +342,10 @@ const AudioEngine = (() => {
             muted = entry.player.isMuted();
           }
         } catch (e) { state = "gone"; }
-        out[i] = { state, vol, muted, target: entry.target ?? null };
+        out[i] = { state, vol, muted, target: entry.target ?? null,
+                   userPaused: !!entry.userPaused };
       });
-      return { activeIndex, soundOn, started, players: out };
+      return { activeIndex, soundOn, started, nativeControls, players: out };
     },
 
     /** Reduced-motion path: play one section on explicit user request only. */

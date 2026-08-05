@@ -7,6 +7,10 @@
 
 (() => {
   const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Below this width the video is a contained inline card rather than a
+  // full-bleed background, so it should behave like a video the viewer can
+  // actually operate — including reaching YouTube's Skip Ad button.
+  const TOUCH_LAYOUT = window.matchMedia("(max-width: 860px)").matches;
 
   const el = {
     body: document.body,
@@ -561,6 +565,7 @@
 
   AudioEngine.init(
     DATA.map((g) => ({ id: g.id, video: g.video, videoStart: g.videoStart })),
-    { onSoundChange: reflectSound, onFirstPlay: showToast, onTrackEnd: handleTrackEnd }
+    { onSoundChange: reflectSound, onFirstPlay: showToast, onTrackEnd: handleTrackEnd,
+      nativeControls: TOUCH_LAYOUT }
   );
 })();
