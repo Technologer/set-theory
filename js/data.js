@@ -42,7 +42,7 @@ const DATA = [
   { id: "deep-house", act: 1, family: "House", accent: "#ff3d81",
     name: "Deep House",
     bpm: "118–125", artists: "Disclosure, Kerri Chandler, Dixon, Larry Heard",
-    video: "cjRO1phXsg8", videoStart: 0 },
+    video: "tFuujExs03A", videoStart: 0 },
 
   // ===== ACT 2 — GROOVE =====
   { id: "house", act: 2, family: "House", accent: "#ff3d81",

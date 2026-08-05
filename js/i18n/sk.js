@@ -102,9 +102,9 @@ const I18N_SK = {
     "deep-house": {
       tagline: "Spomalený house oblečený do jazzových akordov.",
       energy: "Teplá, uvoľnená",
-      desc: "Deep house berie housový groove a zjemňuje ho: rozšírené jazzové akordy, teplý sub-bass, atmosférické pady a nenápadné, často soulové vokály posadené nižšie v mixe. Ide mu o náladu a textúru, nie o veľké momenty.",
-      funFact: "Šablónu deep housu vytvoril Chicagčan Larry Heard (aka Mr. Fingers) — svoju klasiku „Can You Feel It“ vraj postavil takmer celú na jedinom Rolande Juno-60. „Latch“ od Disclosure prišiel o štvrťstoročie neskôr s rovnakými ingredienciami: jazzové akordy a teplý sub-bass pod soulovým vokálom.",
-      videoNote: "Disclosure ft. Sam Smith — „Latch“, moderný crossover hit deep housu"
+      desc: "Deep house berie housový groove a zjemňuje ho: rozšírené jazzové akordy, teplý sub-bass a atmosférické pady, pričom všetko ostatné drží nenápadne a nižšie v mixe. Ide mu o náladu a textúru, nie o veľké momenty.",
+      funFact: "Tu sa deep house začína: Chicagčan Larry Heard, nahrávajúci ako Mr. Fingers, to vraj postavil takmer celé na jedinom Rolande Juno-60. Všetko, čo žáner robí dodnes, je už tu — zjemnený groove, teplý sub-bass a odmietanie siahnuť po veľkom momente. Disclosure pracovali s rovnakým receptom o štvrťstoročie neskôr.",
+      videoNote: "Mr. Fingers — „Can You Feel It“, platňa, z ktorej deep house vyrástol"
     },
 
     "house": {

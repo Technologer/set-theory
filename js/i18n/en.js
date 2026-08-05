@@ -91,9 +91,9 @@ const I18N_EN = {
     "deep-house": {
       tagline: "House slowed down and dressed in jazz chords.",
       energy: "Warm, laid-back",
-      desc: "Deep house takes house's groove and softens it: jazzy extended chords, warm sub-bass, atmospheric pads, and understated, often soulful vocals sitting low in the mix. It prioritizes mood and texture over big moments.",
-      funFact: "Deep house's template came from Chicago's Larry Heard (aka Mr. Fingers), who reportedly built his classic \"Can You Feel It\" almost entirely on a single Roland Juno-60. Disclosure's \"Latch\" landed a quarter-century later with the same ingredients — jazz-tinged chords and warm sub-bass under a soulful vocal.",
-      videoNote: "Disclosure ft. Sam Smith — \"Latch\", a modern deep house crossover hit"
+      desc: "Deep house takes house's groove and softens it: jazzy extended chords, warm sub-bass and atmospheric pads, with anything else kept understated and low in the mix. It prioritizes mood and texture over big moments.",
+      funFact: "This is where deep house starts: Chicago's Larry Heard, recording as Mr. Fingers, reportedly built it almost entirely on a single Roland Juno-60. Everything the genre still does is already here — the softened groove, the warm sub-bass, the refusal to reach for a big moment. Disclosure were working from the same recipe a quarter-century later.",
+      videoNote: "Mr. Fingers — \"Can You Feel It\", the record deep house grew out of"
     },
     "house": {
       tagline: "The 4/4 foundation nearly everything else is built on.",
