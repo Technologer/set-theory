@@ -323,8 +323,47 @@
 
     sections.forEach((s, i) => s.classList.toggle("is-current", i === index));
 
+    // Keep the address bar on the section being read, so the URL is always
+    // copyable. replaceState rather than pushState: pushing would turn Back
+    // into a 24-step walk through the set instead of leaving the page.
+    if (journeyStarted && index >= 0) {
+      history.replaceState(null, "", "#" + g.id);
+    }
+
     if (!REDUCED) AudioEngine.setActive(index);
   }
+
+  /* ================= deep links ================= */
+
+  /** Index of the genre named in the URL hash, or -1. */
+  function hashIndex() {
+    const id = decodeURIComponent(location.hash.replace(/^#/, "")).trim();
+    return id ? DATA.findIndex((g) => g.id === id) : -1;
+  }
+
+  /** A shared link should land on the genre, not on the splash screen. Skipping
+      the intro costs nothing: muted autoplay needs no gesture, and the speaker
+      toggle is what unlocks audible playback either way. */
+  function initDeepLink() {
+    const i = hashIndex();
+    if (i < 0) return;
+    setCurrent(i);
+    start();
+    // Scroll now — releasing the intro changes layout, but style is recalculated
+    // on demand so this lands. The rAF is a second attempt only: it does not fire
+    // when a link opens in a background tab, so it must not be the only one.
+    const land = () =>
+      sections[i].scrollIntoView({ behavior: "auto", block: "start" });
+    land();
+    requestAnimationFrame(land);
+  }
+
+  // Someone editing the hash, or following a second link on the same page.
+  // Our own replaceState does not fire this, so there is no loop.
+  addEventListener("hashchange", () => {
+    const i = hashIndex();
+    if (i >= 0 && i !== current) goTo(i);
+  });
 
   /* ================= scroll observers ================= */
 
@@ -682,6 +721,7 @@
   initDelegates();
   setCurrent(0);
   if (REDUCED) el.body.classList.add("is-reduced");
+  initDeepLink();
 
   AudioEngine.init(
     DATA.map((g) => ({ id: g.id, video: g.video, videoStart: g.videoStart })),
