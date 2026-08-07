@@ -20,6 +20,12 @@ const I18N_SK = {
     description: "Sprievodca 24 žánrmi elektronickej tanečnej hudby, zoradenými ako skutočný DJ set: BPM, energia, kľúčoví interpreti a skladba ku každému."
   },
 
+  /* The quiz is its own page, so it gets its own tab title and snippet. */
+  metaQuiz: {
+    title: "Pomenuj ten žáner — Set Theory",
+    description: "Desať 30-sekundových ukážok, bez obrazu. Pomenuj elektronický žáner."
+  },
+
   ui: {
     introKicker: "24 žánrov · 6 aktov · jeden súvislý set",
     introPitch: "Ešte nepočuješ rozdiel medzi tech house a techno? Dvadsaťštyri žánrov v poradí ako v sete, každý s BPM, energiou a skladbou, ktorá ho definuje — naučíš sa ich tak, ako sa ich učí DJ: podľa toho, čo príde ďalej.",
@@ -44,6 +50,33 @@ const I18N_SK = {
     toast: "🔊 ťukni pre zvuk",
     noMatch: (q) => `Žiadny žáner nezodpovedá „${q}“`,
 
+
+    quizCta: "Otestuj si sluch ▶",
+    quizCtaNote: "Desať 30-sekundových ukážok, bez obrazu. Pomenuj žáner.",
+    quizKicker: "Tréning sluchu",
+    quizTitle: "Pomenuj ten žáner",
+    quizLede: "Desať ukážok po tridsiatich sekundách, bez videa, ktoré by to prezradilo. Nesprávne odpovede sú vybrané z tej istej rodiny alebo z rovnakého tempového rozsahu — takže je to presne tá zámena, na ktorú tento sprievodca existuje, nie tipovanie.",
+    quizBegin: "Spustiť kolo ▶",
+    quizBack: "Späť na sprievodcu",
+    quizPlayClip: "Prehrať ukážku",
+    quizPauseClip: "Pozastaviť ukážku",
+    quizRight: "Správne.",
+    quizWrong: (picked) => `Nie úplne — tvoja odpoveď: ${picked}.`,
+    quizApple: "Otvoriť na Apple Music ↗",
+    quizNext: "Ďalšia ukážka",
+    quizFinish: "Zobraziť výsledok",
+    quizDoneKicker: "Kolo skončilo",
+    quizAgain: "Hrať znova ▶",
+    quizYouSaid: (picked) => `tvoja odpoveď: ${picked}`,
+    quizPerfect: "Nič mimo. Zahraj si znova pre ťažšie losovanie.",
+    quizVerdict: (hits, total) => {
+      const pct = hits / total;
+      if (pct === 1) return "Všetko. Rozdiely naozaj počuješ, netipuješ ich.";
+      if (pct >= 0.8) return "Silné. Rodiny máš jasné, zostávajú tí najbližší susedia.";
+      if (pct >= 0.5) return "Polovica. Široké rodiny vieš zaradiť — práca je v prekryvoch pri rovnakom tempe.";
+      if (pct >= 0.3) return "Začiatok. Vráť sa na Akt 2 a Akt 4, tam žije väčšina zameniteľných párov.";
+      return "Náročné kolo. Najprv si prejdi sprievodcu so zvukom — ukážky potom dávajú oveľa väčší zmysel.";
+    },
     outroKicker: "Rozsvieti sa",
     outroTitle: "Prešiel si celým setom.",
     outroText: "Dvadsaťštyri žánrov, 60 až 180 BPM, od warm-upu po poslednú platňu. Užitočné nie je zapamätať si názvy — ale počuť, kde skladba sedí v oblúku, a vedieť, čo by si pustil ďalej. Ťukni na ktorýkoľvek žáner a vráť sa k nemu.",

@@ -64,97 +64,18 @@
   const stripTerms = (s) => String(s).replace(TERM_RE, (_, label) => label);
 
   /* ================= i18n =================
-     Every locale is a peer: js/i18n/<lang>.js holds all of that language's
-     prose, data.js holds only language-neutral facts, and index.html holds no
-     copy at all. English doubles as the fallback, so a key a locale omits is
-     read from English and a partial translation still renders. */
+     Resolution lives in js/i18n.js so the quiz page can use the same fallback
+     rules without reimplementing them. What stays here is guide-specific: the
+     section patching that i18n.js has no business knowing about. */
 
-  const LANG_KEY = "set-theory-lang";
-  const FALLBACK = "en";
-  const LOCALES = {
-    en: typeof I18N_EN !== "undefined" ? I18N_EN : null,
-    sk: typeof I18N_SK !== "undefined" ? I18N_SK : null,
-  };
-
-  let lang = FALLBACK;
-
-  function detectLang() {
-    const saved = localStorage.getItem(LANG_KEY);
-    if (saved === "en" || saved === "sk") return saved;
-    // Slovak only for Slovak browsers; everyone else gets English.
-    return (navigator.language || "").toLowerCase().startsWith("sk")
-      ? "sk"
-      : "en";
-  }
-
-  const locale = () => LOCALES[lang] || LOCALES[FALLBACK];
-
-  function dig(obj, path) {
-    return path
-      .split(".")
-      .reduce((o, k) => (o == null ? undefined : o[k]), obj);
-  }
-
-  function ui(key) {
-    const v = dig(locale().ui, key);
-    return v !== undefined && v !== null ? v : dig(LOCALES[FALLBACK].ui, key);
-  }
-
-  /** Genre copy, falling back to English per field. */
-  function gtext(g, field) {
-    const here = locale().genres[g.id];
-    const back = LOCALES[FALLBACK].genres[g.id];
-    return (here && here[field]) || (back && back[field]) || "";
-  }
-
-  /** BPM range (neutral, from data.js) plus the translated parenthetical. */
-  function gbpm(g) {
-    const note = gtext(g, "bpmNote");
-    return note ? `${g.bpm} (${note})` : g.bpm;
-  }
-
-  function term(id) {
-    return (
-      (locale().glossary && locale().glossary[id]) ||
-      (LOCALES[FALLBACK].glossary && LOCALES[FALLBACK].glossary[id]) ||
-      null
-    );
-  }
-
-  function actBlurb(act) {
-    const here = locale().acts[act];
-    const back = LOCALES[FALLBACK].acts[act];
-    return (here && here.blurb) || (back && back.blurb) || "";
-  }
+  const ui = (k) => I18N.ui(k);
+  const gtext = (g, f) => I18N.gtext(g, f);
+  const gbpm = (g) => I18N.gbpm(g);
+  const term = (id) => I18N.term(id);
+  const actBlurb = (a) => I18N.actBlurb(a);
 
   function applyLanguage() {
-    const loc = locale();
-    document.documentElement.lang = lang;
-
-    document.title = loc.meta.title;
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute("content", loc.meta.description);
-
-    document
-      .querySelectorAll("[data-i18n]")
-      .forEach((n) => (n.textContent = ui(n.dataset.i18n)));
-    document
-      .querySelectorAll("[data-i18n-html]")
-      .forEach((n) => (n.innerHTML = ui(n.dataset.i18nHtml)));
-    document
-      .querySelectorAll("[data-i18n-placeholder]")
-      .forEach((n) => (n.placeholder = ui(n.dataset.i18nPlaceholder)));
-    document
-      .querySelectorAll("[data-i18n-aria-label]")
-      .forEach((n) =>
-        n.setAttribute("aria-label", ui(n.dataset.i18nAriaLabel)),
-      );
-    // The player toggle is desktop-only, so hover always exists — a real tooltip
-    // is how a sighted mouse user discovers what the icon does.
-    document
-      .querySelectorAll("[data-i18n-title]")
-      .forEach((n) => n.setAttribute("title", ui(n.dataset.i18nTitle)));
+    I18N.applyAttributes();
 
     // Sections are patched in place rather than re-rendered: a re-render would
     // tear out the live YouTube iframes and orphan the audio engine's players.
@@ -188,10 +109,10 @@
     });
 
     // Button advertises the language you'd switch TO.
-    el.langToggle.textContent = lang === "sk" ? "EN" : "SK";
+    el.langToggle.textContent = I18N.other().toUpperCase();
     el.langToggle.setAttribute(
       "aria-label",
-      lang === "sk" ? "Switch to English" : "Prepnúť na slovenčinu",
+      I18N.get() === "sk" ? "Switch to English" : "Prepnúť na slovenčinu",
     );
 
     reflectSound(AudioEngine.isSoundOn());
@@ -201,8 +122,7 @@
 
   function initLang() {
     el.langToggle.addEventListener("click", () => {
-      lang = lang === "sk" ? "en" : "sk";
-      localStorage.setItem(LANG_KEY, lang);
+      I18N.toggle();
       applyLanguage();
     });
     applyLanguage();
@@ -710,7 +630,7 @@
 
   /* ================= boot ================= */
 
-  lang = detectLang();
+  I18N.detect();
   render();
   initLang();
   initIntro();

@@ -15,6 +15,12 @@ const I18N_EN = {
     description: "A scroll-through guide to 24 electronic dance genres, sequenced like a real DJ set: BPM, energy, notable artists and a track for each."
   },
 
+  /* The quiz is its own page, so it gets its own tab title and snippet. */
+  metaQuiz: {
+    title: "Name that genre — Set Theory",
+    description: "Ten 30-second clips, no picture. Name the electronic genre."
+  },
+
   ui: {
     introKicker: "24 genres · 6 acts · one continuous set",
     introPitch: "Can't hear the difference between tech house and techno yet? Twenty-four genres in set order, each with its BPM, its energy, and the track that defines it — so you learn them the way a DJ does: by what comes next.",
@@ -39,6 +45,33 @@ const I18N_EN = {
     toast: "🔊 tap to hear the music",
     noMatch: (q) => `No genre matches “${q}”`,
 
+
+    quizCta: "Test your ear ▶",
+    quizCtaNote: "Ten 30-second clips, no picture. Name the genre.",
+    quizKicker: "Ear training",
+    quizTitle: "Name that genre",
+    quizLede: "Ten clips, thirty seconds each, no video to give it away. The wrong answers are picked from the same family or the same tempo range — so this is the confusion the guide exists to fix, not a lucky guess.",
+    quizBegin: "Start the round ▶",
+    quizBack: "Back to the guide",
+    quizPlayClip: "Play the clip",
+    quizPauseClip: "Pause the clip",
+    quizRight: "Correct.",
+    quizWrong: (picked) => `Not quite — you said ${picked}.`,
+    quizApple: "Open on Apple Music ↗",
+    quizNext: "Next clip",
+    quizFinish: "See the result",
+    quizDoneKicker: "Round over",
+    quizAgain: "Play again ▶",
+    quizYouSaid: (picked) => `you said ${picked}`,
+    quizPerfect: "Nothing missed. Play again for a harder draw.",
+    quizVerdict: (hits, total) => {
+      const pct = hits / total;
+      if (pct === 1) return "Every one. You are hearing the differences, not guessing them.";
+      if (pct >= 0.8) return "Strong. The families are clear to you; the near-neighbours are what is left.";
+      if (pct >= 0.5) return "Halfway there. You can place the broad families — the overlaps at the same tempo are the work.";
+      if (pct >= 0.3) return "A start. Go back through Act 2 and Act 4, where most of the confusable pairs live.";
+      return "Rough round. Scroll the guide with the sound on first — the clips make much more sense afterwards.";
+    },
     outroKicker: "Lights up",
     outroTitle: "You made it through the whole set.",
     outroText: "Twenty-four genres, 60 to 180 BPM, warm-up to last record. The useful part isn't memorising names — it's hearing where a track sits in the arc, and knowing what you'd play next. Tap any genre to go back and listen again.",

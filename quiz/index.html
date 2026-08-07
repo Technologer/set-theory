@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Set Theory</title>
+    <meta name="description" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body class="quiz-page">
+    <!-- Shaped like the guide's topbar: brand on the left, counter on the right.
+     The progress lives here rather than in the page body so the question itself
+     starts at the top of the screen. -->
+    <header class="quiz-bar">
+      <a class="quiz-bar__brand" href="../">Set&nbsp;Theory</a>
+      <span class="quiz-bar__tools">
+        <span class="quiz__dots" id="quiz-dots"></span>
+        <span class="quiz-bar__count" id="quiz-progress"></span>
+        <button
+          class="iconbtn iconbtn--lang"
+          id="lang-toggle"
+          type="button"
+        ></button>
+      </span>
+    </header>
+
+    <section class="quiz" id="quiz" hidden aria-labelledby="quiz-title">
+      <div class="quiz__inner">
+        <div class="quiz__screen" id="quiz-start">
+          <p class="quiz__kicker" data-i18n="quizKicker"></p>
+          <h2 class="quiz__title" id="quiz-title" data-i18n="quizTitle"></h2>
+          <p class="quiz__lede" data-i18n="quizLede"></p>
+          <button
+            class="btn-begin"
+            id="quiz-begin"
+            type="button"
+            data-i18n="quizBegin"
+          ></button>
+          <button
+            class="quiz__link"
+            type="button"
+            data-quiz-exit
+            data-i18n="quizBack"
+          ></button>
+        </div>
+
+        <div class="quiz__screen" id="quiz-play" hidden>
+          <button class="quiz__player" id="quiz-replay" type="button">
+            <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
+            <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 4h4v16H7zM13 4h4v16h-4z" />
+            </svg>
+            <span class="quiz__track-bar"><i id="quiz-bar"></i></span>
+          </button>
+
+          <ul class="quiz__options" id="quiz-options"></ul>
+
+          <div class="quiz__reveal" id="quiz-reveal" hidden>
+            <p class="quiz__verdict" id="quiz-verdict"></p>
+            <p class="quiz__why" id="quiz-why"></p>
+            <p class="quiz__track" id="quiz-track"></p>
+            <button class="btn-begin" id="quiz-next" type="button"></button>
+          </div>
+        </div>
+
+        <div class="quiz__screen" id="quiz-done" hidden>
+          <p class="quiz__kicker" data-i18n="quizDoneKicker"></p>
+          <p class="quiz__bigscore" id="quiz-done-score"></p>
+          <p class="quiz__lede" id="quiz-done-verdict"></p>
+          <ul class="quiz__misses" id="quiz-done-list"></ul>
+          <button
+            class="btn-begin"
+            id="quiz-again"
+            type="button"
+            data-i18n="quizAgain"
+          ></button>
+          <button
+            class="quiz__link"
+            type="button"
+            data-quiz-exit
+            data-i18n="quizBack"
+          ></button>
+        </div>
+      </div>
+    </section>
+
+    <script src="../js/i18n/en.js"></script>
+    <script src="../js/i18n/sk.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script src="../js/quiz-page.js"></script>
+  </body>
+</html>
