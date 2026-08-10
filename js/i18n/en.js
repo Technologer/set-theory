@@ -18,7 +18,7 @@ const I18N_EN = {
   /* The quiz is its own page, so it gets its own tab title and snippet. */
   metaQuiz: {
     title: "Name that genre — Set Theory",
-    description: "Ten 30-second clips, no picture. Name the electronic genre."
+    description: "Ten 40-second clips, no picture. Name the electronic genre."
   },
 
   ui: {
@@ -47,17 +47,19 @@ const I18N_EN = {
 
 
     quizCta: "Test your ear ▶",
-    quizCtaNote: "Ten 30-second clips, no picture. Name the genre.",
+    quizCtaNote: "Ten 40-second clips, no picture. Name the genre.",
     quizKicker: "Ear training",
     quizTitle: "Name that genre",
-    quizLede: "Ten clips, thirty seconds each, no video to give it away. The wrong answers are picked from the same family or the same tempo range — so this is the confusion the guide exists to fix, not a lucky guess.",
+    quizLede: "Ten clips, forty seconds each, no video to give it away. The wrong answers are picked from the same family or the same tempo range — so this is the confusion the guide exists to fix, not a lucky guess.",
     quizBegin: "Start the round ▶",
     quizBack: "Back to the guide",
     quizPlayClip: "Play the clip",
     quizPauseClip: "Pause the clip",
     quizRight: "Correct.",
     quizWrong: (picked) => `Not quite — you said ${picked}.`,
-    quizApple: "Open on Apple Music ↗",
+    quizNcsProvided: (link) => `Music provided by ${link}`,
+    quizNcsDownload: "Free download / stream ↗",
+    quizNcsStanding: (link) => `All music provided by ${link}. Each track is credited with its clip.`,
     quizNext: "Next clip",
     quizFinish: "See the result",
     quizDoneKicker: "Round over",

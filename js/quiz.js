@@ -1,18 +1,20 @@
 /* Set Theory — ear-training quiz.
-   Plays Apple's 30-second preview and asks which genre it is.
+   Plays a 40-second clip and asks which genre it is.
 
    Audio only, deliberately: the YouTube video carries artist names and official
-   video imagery, so showing it would hand over the answer. Previews also have no
-   pre-roll ads and start instantly, neither of which is true of the embeds.
+   video imagery, so showing it would hand over the answer. The clips are cut
+   from NoCopyrightSounds releases and served from this repo, so they start
+   instantly, carry no ads, and cannot break when someone else rotates a URL.
+   NCS licenses them on condition the track is credited, which creditHtml does.
 
    Dependencies are injected by app.js rather than reached for globally, so this
    file has no opinion about how i18n or navigation work. */
 
 const Quiz = (() => {
   const ROUND = 10; // questions per round
-  const CLIP_MS = 30000;
+  const CLIP_MS = 40000; // clip length, used only if duration is unknown
 
-  let ui, gtext, goToGenre, genreHref, onExit;
+  let ui, gtext, goToGenre, genreHref, previewUrl, onExit;
   let el = {};
   let round = [];
   let at = 0;
@@ -80,8 +82,9 @@ const Quiz = (() => {
   function playClip(restart) {
     const g = round[at];
     const a = ensureAudio();
-    if (a.src !== g.preview) {
-      a.src = g.preview;
+    const src = previewUrl(g);
+    if (!a.src.endsWith(src)) {
+      a.src = src;
       restart = true;
     }
     if (restart || a.ended) a.currentTime = 0;
@@ -188,8 +191,7 @@ const Quiz = (() => {
     // writing a second version of the same sentence.
     el.why.textContent = `${g.name} · ${g.bpm} BPM — ${gtext(g, "tagline")}`;
     el.why.style.setProperty("--accent", g.accent);
-    el.track.innerHTML =
-      `${escapeHtml(g.previewBy)} · <a href="${g.apple}" target="_blank" rel="noopener">${escapeHtml(ui("quizApple"))}</a>`;
+    el.track.innerHTML = creditHtml(g);
     el.next.textContent = at + 1 < round.length ? ui("quizNext") : ui("quizFinish");
     el.reveal.hidden = false;
     el.dots.querySelectorAll("i")[at].className = correct ? "is-hit" : "is-miss";
@@ -227,6 +229,27 @@ const Quiz = (() => {
   const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+  /** The licence attribution repeated on the screens that show no single track. */
+  function paintStanding() {
+    const link = `<a href="https://ncs.io" target="_blank" rel="noopener">NoCopyrightSounds</a>`;
+    document.querySelectorAll("[data-ncs-credit]").forEach((n) => {
+      n.innerHTML = ui("quizNcsStanding")(link);
+    });
+  }
+
+  /** The attribution NCS asks for in return for the licence: the artist and
+      track, and a link to their upload. Rendered on every reveal, and repeated
+      standing on the start and result screens so it is reachable without
+      finishing a round. */
+  function creditHtml(g) {
+    const c = g.credit;
+    if (!c) return "";
+    const track = escapeHtml(`${c.artist} — ${c.title} [NCS Release]`);
+    const provided = `<a href="https://ncs.io" target="_blank" rel="noopener">NoCopyrightSounds</a>`;
+    const dl = `<a href="${c.url}" target="_blank" rel="noopener">${escapeHtml(ui("quizNcsDownload"))}</a>`;
+    return `${track}<br>${ui("quizNcsProvided")(provided)} · ${dl}`;
+  }
+
   /* ---------- public ---------- */
 
   return {
@@ -237,6 +260,9 @@ const Quiz = (() => {
       // Where a genre lives as a real URL, so these stay copyable and
       // cmd-clickable rather than being click-handler-only.
       genreHref = deps.genreHref || ((id) => `#${id}`);
+      // Clip paths in data.js are relative to the site root; a page in a
+      // subdirectory prefixes them.
+      previewUrl = deps.previewUrl || ((g) => g.preview);
       onExit = deps.onExit;
 
       el = {
@@ -259,6 +285,7 @@ const Quiz = (() => {
         doneList: document.getElementById("quiz-done-list"),
       };
 
+      paintStanding();
       document.getElementById("quiz-begin").addEventListener("click", begin);
       document.getElementById("quiz-again").addEventListener("click", begin);
       el.player.addEventListener("click", togglePlay);
@@ -320,6 +347,7 @@ const Quiz = (() => {
     /** Re-label whatever is on screen after a language switch. */
     applyLanguage() {
       if (!el.root || el.root.hidden) return;
+      paintStanding();
       if (!el.play.hidden) {
         reflectPlayer();
         // The counter is digits, so it needs no relabelling.
@@ -330,8 +358,7 @@ const Quiz = (() => {
           const picked = DATA.find((x) => x.id === a.chosen);
           el.verdict.textContent = a.correct ? ui("quizRight") : ui("quizWrong")(picked.name);
           el.why.textContent = `${g.name} · ${g.bpm} BPM — ${gtext(g, "tagline")}`;
-          el.track.innerHTML =
-            `${escapeHtml(g.previewBy)} · <a href="${g.apple}" target="_blank" rel="noopener">${escapeHtml(ui("quizApple"))}</a>`;
+          el.track.innerHTML = creditHtml(g);
         }
       }
       if (!el.done.hidden) finish();

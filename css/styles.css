@@ -1385,6 +1385,25 @@ body.quiz-open .rail {
   color: var(--ink);
 }
 
+/* Licence attribution. Quiet, but present without having to play a round. */
+.quiz__ncs {
+  margin: 26px auto 0;
+  max-width: 34em;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+.quiz__ncs a {
+  color: var(--ink-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.quiz__ncs a:hover {
+  color: var(--ink);
+}
+
 /* ---- the stepper (lives in the bar) ---- */
 
 .quiz__dots {

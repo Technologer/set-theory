@@ -28,6 +28,8 @@
     gtext: (g, f) => I18N.gtext(g, f),
     // A miss links back into the guide, which honours a genre hash on arrival.
     genreHref: (id) => `../#${id}`,
+    // Clip paths are site-root relative; this page sits one level down.
+    previewUrl: (g) => `../${g.preview}`,
     goToGenre: (id) => { location.href = `../#${id}`; },
     onExit: () => { location.href = "../"; },
   });

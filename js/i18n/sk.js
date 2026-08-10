@@ -23,7 +23,7 @@ const I18N_SK = {
   /* The quiz is its own page, so it gets its own tab title and snippet. */
   metaQuiz: {
     title: "Pomenuj ten žáner — Set Theory",
-    description: "Desať 30-sekundových ukážok, bez obrazu. Pomenuj elektronický žáner."
+    description: "Desať 40-sekundových ukážok, bez obrazu. Pomenuj elektronický žáner."
   },
 
   ui: {
@@ -52,17 +52,19 @@ const I18N_SK = {
 
 
     quizCta: "Otestuj si sluch ▶",
-    quizCtaNote: "Desať 30-sekundových ukážok, bez obrazu. Pomenuj žáner.",
+    quizCtaNote: "Desať 40-sekundových ukážok, bez obrazu. Pomenuj žáner.",
     quizKicker: "Tréning sluchu",
     quizTitle: "Pomenuj ten žáner",
-    quizLede: "Desať ukážok po tridsiatich sekundách, bez videa, ktoré by to prezradilo. Nesprávne odpovede sú vybrané z tej istej rodiny alebo z rovnakého tempového rozsahu — takže je to presne tá zámena, na ktorú tento sprievodca existuje, nie tipovanie.",
+    quizLede: "Desať ukážok po štyridsiatich sekundách, bez videa, ktoré by to prezradilo. Nesprávne odpovede sú vybrané z tej istej rodiny alebo z rovnakého tempového rozsahu — takže je to presne tá zámena, na ktorú tento sprievodca existuje, nie tipovanie.",
     quizBegin: "Spustiť kolo ▶",
     quizBack: "Späť na sprievodcu",
     quizPlayClip: "Prehrať ukážku",
     quizPauseClip: "Pozastaviť ukážku",
     quizRight: "Správne.",
     quizWrong: (picked) => `Nie úplne — tvoja odpoveď: ${picked}.`,
-    quizApple: "Otvoriť na Apple Music ↗",
+    quizNcsProvided: (link) => `Hudbu poskytuje ${link}`,
+    quizNcsDownload: "Stiahnutie / streamovanie zdarma ↗",
+    quizNcsStanding: (link) => `Všetku hudbu poskytuje ${link}. Každá skladba je uvedená pri svojej ukážke.`,
     quizNext: "Ďalšia ukážka",
     quizFinish: "Zobraziť výsledok",
     quizDoneKicker: "Kolo skončilo",
