@@ -13,8 +13,13 @@
 const Quiz = (() => {
   const ROUND = 10; // questions per round
   const CLIP_MS = 40000; // clip length, used only if duration is unknown
+  /* A finished round is kept for the tab's lifetime, so following a missed
+     genre into the guide and coming back shows the result again rather than a
+     fresh start screen. Only completed rounds are stored — restoring someone
+     into the middle of a question is a worse guess than letting them restart. */
+  const SAVE_KEY = "set-theory-quiz-result";
 
-  let ui, gtext, goToGenre, genreHref, previewUrl, onExit;
+  let ui, gtext, genreHref, previewUrl, onExit;
   let el = {};
   let round = [];
   let at = 0;
@@ -128,6 +133,46 @@ const Quiz = (() => {
     barTimer = null;
   }
 
+  /* ---------- keeping a finished round ---------- */
+
+  function saveResult() {
+    try {
+      sessionStorage.setItem(SAVE_KEY, JSON.stringify({
+        roundIds: round.map((g) => g.id),
+        answers: answers.map((a) => ({ id: a.genre.id, chosen: a.chosen, correct: a.correct })),
+      }));
+    } catch (e) {
+      // Storage can be unavailable (private browsing, quota). Not worth failing over.
+    }
+  }
+
+  function clearResult() {
+    try { sessionStorage.removeItem(SAVE_KEY); } catch (e) { /* as above */ }
+  }
+
+  /** Rebuild a stored round. Returns false if nothing usable was stored, so the
+      caller can fall back to the start screen. */
+  function restoreResult() {
+    let saved = null;
+    try { saved = JSON.parse(sessionStorage.getItem(SAVE_KEY) || "null"); } catch (e) { return false; }
+    if (!saved || !Array.isArray(saved.roundIds) || !Array.isArray(saved.answers)) return false;
+
+    const byId = (id) => DATA.find((g) => g.id === id);
+    const genres = saved.roundIds.map(byId);
+    // The clip line-up can change between visits; a stale round is not restorable.
+    if (genres.length !== saved.answers.length || genres.some((g) => !g)) return false;
+    const restored = saved.answers.map((a) => ({
+      genre: byId(a.id), chosen: a.chosen, correct: !!a.correct,
+    }));
+    if (restored.some((a) => !a.genre)) return false;
+
+    round = genres;
+    answers = restored;
+    at = round.length - 1;
+    finish();
+    return true;
+  }
+
   /* ---------- screens ---------- */
 
   function show(screen) {
@@ -138,6 +183,7 @@ const Quiz = (() => {
   }
 
   function begin() {
+    clearResult();
     round = shuffle(DATA.filter((g) => g.preview)).slice(0, ROUND);
     at = 0;
     answers = [];
@@ -224,6 +270,8 @@ const Quiz = (() => {
             </a></li>`;
         }).join("")
       : `<li class="quiz__clean">${escapeHtml(ui("quizPerfect"))}</li>`;
+
+    saveResult();
   }
 
   const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -256,7 +304,6 @@ const Quiz = (() => {
     init(deps) {
       ui = deps.ui;
       gtext = deps.gtext;
-      goToGenre = deps.goToGenre;
       // Where a genre lives as a real URL, so these stay copyable and
       // cmd-clickable rather than being click-handler-only.
       genreHref = deps.genreHref || ((id) => `#${id}`);
@@ -293,19 +340,27 @@ const Quiz = (() => {
       el.next.addEventListener("click", next);
 
       document.querySelectorAll("[data-quiz-exit]").forEach((b) =>
-        b.addEventListener("click", () => this.close()));
+        b.addEventListener("click", () => { clearResult(); this.close(); }));
 
       el.options.addEventListener("click", (e) => {
         const b = e.target.closest("[data-pick]");
         if (b) answer(b.dataset.pick);
       });
 
+      // These are real links to the guide, so let the browser navigate: that
+      // keeps a history entry, so Back returns here. Hiding the quiz first (as
+      // close() does) left a blank page behind when the browser restored this
+      // page from its back/forward cache.
       el.doneList.addEventListener("click", (e) => {
-        const a = e.target.closest("[data-quiz-jump]");
-        if (!a) return;
-        e.preventDefault();
-        this.close();
-        goToGenre(a.dataset.quizJump);
+        if (e.target.closest("[data-quiz-jump]")) stopClip();
+      });
+
+      // Belt and braces for that restore: whatever state the page was left in,
+      // it must come back visible.
+      addEventListener("pageshow", (e) => {
+        if (!e.persisted) return;
+        document.body.classList.add("quiz-open");
+        el.root.hidden = false;
       });
 
       // 1–4 to answer, Enter to move on — quicker than reaching for the mouse.
@@ -321,7 +376,7 @@ const Quiz = (() => {
           e.preventDefault();
           next();
         }
-        if (e.key === "Escape") this.close();
+        if (e.key === "Escape") { clearResult(); this.close(); }
       });
     },
 
@@ -331,7 +386,7 @@ const Quiz = (() => {
       if (typeof AudioEngine !== "undefined") AudioEngine.clearActive();
       document.body.classList.add("quiz-open");
       el.root.hidden = false;
-      show("start");
+      if (!restoreResult()) show("start");
       window.scrollTo({ top: 0, behavior: "auto" });
     },
 

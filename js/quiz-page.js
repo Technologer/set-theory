@@ -30,7 +30,6 @@
     genreHref: (id) => `../#${id}`,
     // Clip paths are site-root relative; this page sits one level down.
     previewUrl: (g) => `../${g.preview}`,
-    goToGenre: (id) => { location.href = `../#${id}`; },
     onExit: () => { location.href = "../"; },
   });
 
