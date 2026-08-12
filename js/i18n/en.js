@@ -23,7 +23,7 @@ const I18N_EN = {
 
   ui: {
     introKicker: "24 genres · 6 acts · one continuous set",
-    introPitch: "Can't hear the difference between tech house and techno yet? Twenty-four genres in set order, each with its BPM, its energy, and the track that defines it — so you learn them the way a DJ does: by what comes next.",
+    introPitch: "Can't hear what separates one genre from the next? Twenty-four genres in set order, each with its BPM, its energy, and the track that defines it — so you learn them the way a DJ does: by what comes next.",
     begin: "Begin the Journey ▶",
     introHint: "Sound starts off. Hit the speaker any time. <kbd>J</kbd>/<kbd>K</kbd> to skip between genres.",
 

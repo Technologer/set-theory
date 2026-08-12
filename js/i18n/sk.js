@@ -28,7 +28,7 @@ const I18N_SK = {
 
   ui: {
     introKicker: "24 žánrov · 6 aktov · jeden súvislý set",
-    introPitch: "Ešte nepočuješ rozdiel medzi tech house a techno? Dvadsaťštyri žánrov v poradí ako v sete, každý s BPM, energiou a skladbou, ktorá ho definuje — naučíš sa ich tak, ako sa ich učí DJ: podľa toho, čo príde ďalej.",
+    introPitch: "Ešte nepočuješ, čím sa jeden žáner líši od druhého? Dvadsaťštyri žánrov v poradí ako v sete, každý s BPM, energiou a skladbou, ktorá ho definuje — naučíš sa ich tak, ako sa ich učí DJ: podľa toho, čo príde ďalej.",
     begin: "Spustiť cestu ▶",
     introHint: "Zvuk je vypnutý. Reproduktor zapneš kedykoľvek. <kbd>J</kbd>/<kbd>K</kbd> na preskakovanie medzi žánrami.",
 
